@@ -8,8 +8,15 @@ namespace BankRates
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void RateForFirstMonth()
         {
+            decimal rate = CalculateBankRate(100, 2, 12, 1);
+            Assert.AreEqual(51,rate);
+        }
+
+        decimal CalculateBankRate(decimal total, int periodInMonths, decimal interestPerYear, int currentMonth)
+        {
+            return total/periodInMonths+total * interestPerYear/12/100;
         }
     }
 }

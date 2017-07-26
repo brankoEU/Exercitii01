@@ -5,15 +5,15 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   IgnorableNamespaces="uap mp">
 
-  <Identity Name="43ed0797-e38d-485f-ad5c-bea158e8ec35"
-            Publisher="CN=Branko Tudorovici"
+  <Identity Name="d2b2d67c-b168-4814-a3bd-5db00262c22d"
+            Publisher="CN=Branko"
             Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="43ed0797-e38d-485f-ad5c-bea158e8ec35" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="d2b2d67c-b168-4814-a3bd-5db00262c22d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>BankRates</DisplayName>
-    <PublisherDisplayName>Branko Tudorovici</PublisherDisplayName>
+    <PublisherDisplayName>Branko</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
