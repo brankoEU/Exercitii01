@@ -28,6 +28,13 @@ namespace BankRates
             Assert.AreEqual(10.4m, rate);
         }
 
+        [TestMethod]
+        public void RateForThirdMonthOfForthYear()
+        {
+            decimal rate = CalculateBankRate(40000m, 240, 7.57m, 39);
+            Assert.AreEqual(379.0472620172917m, rate);
+        }
+
         decimal CalculateBankRate(decimal total, int periodInMonths, decimal interestPerYear, int currentMonth)
         {
             decimal interestPerMonth = interestPerYear / 12 / 100;
