@@ -15,7 +15,8 @@ namespace BirdAndTrains
         }
         float CalcutateDistance(float trainDistance)
         {
-            return 0;
+            return 3 * trainDistance / 4; //daca viteza unui tren este x, pentru ambele trenuri viteza este 2*x
+            //return 3 * trainDistance / 2; //daca suma vitezelor ambelor trenuri este x 
         }
     }
 }
