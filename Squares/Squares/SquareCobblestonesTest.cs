@@ -21,10 +21,10 @@ namespace Squares
             Assert.AreEqual(9, totalCobblestones);
         }
 
-        int CalcutateCobblestones(int squareLength, int squareWidth, int cobblestoneSide)
+        int CalcutateCobblestones(double squareLength, double squareWidth, double cobblestoneSide)
         {
-            int squareArea = squareLength * squareWidth;
-            int cobblestoneArea = cobblestoneSide * cobblestoneSide;
+            double squareArea = squareLength * squareWidth;
+            double cobblestoneArea = cobblestoneSide * cobblestoneSide;
             double cobblestones = squareArea / cobblestoneArea;
             return (int)Math.Ceiling(cobblestones);
         }
