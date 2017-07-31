@@ -10,12 +10,23 @@ namespace NecesarParchet
         [TestMethod]
         public void TestMethod1()
         {
-
+            int totalParquet = CalculateParquetRequaired(4, 5, 2, 1);
+            Assert.AreEqual(12,totalParquet);
         }
 
-        int CalculateParquetRequaired(float roomLenght, float roomWidth, float parquetLenght, float parquetWidth)
+        [TestMethod]
+        public void TestMethod2()
         {
-            return 0;
+            int totalParquet = CalculateParquetRequaired(20, 11, 1.5, 0.3);
+            Assert.AreEqual(563, totalParquet);
+        }
+
+        int CalculateParquetRequaired(double roomLenght, double roomWidth, double parquetLenght, double parquetWidth)
+        {
+            double parquetPerLenght = roomLenght / parquetLenght;
+            double parquetPerWidth = roomWidth / parquetWidth;
+            double required = parquetPerLenght * parquetPerWidth * 115 / 100;
+            return (int)Math.Ceiling(required);
         }
     }
 }
