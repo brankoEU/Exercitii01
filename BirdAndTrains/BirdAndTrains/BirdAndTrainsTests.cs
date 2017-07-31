@@ -13,6 +13,14 @@ namespace BirdAndTrains
             float birdDistance = CalcutateDistance(100);
             Assert.AreEqual(75, birdDistance);
         }
+
+        [TestMethod]
+        public void Distance743()
+        {
+            float birdDistance = CalcutateDistance(743);
+            Assert.AreEqual(557.25f, birdDistance);
+        }
+
         float CalcutateDistance(float trainDistance)
         {
             return 3 * trainDistance / 4; //daca viteza unui tren este x, pentru ambele trenuri viteza este 2*x
