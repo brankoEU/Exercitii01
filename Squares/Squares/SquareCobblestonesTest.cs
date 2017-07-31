@@ -18,15 +18,21 @@ namespace Squares
         public void TestMethod2()
         {
             int totalCobblestones = CalcutateCobblestones(7, 5, 2);
-            Assert.AreEqual(9, totalCobblestones);
+            Assert.AreEqual(12, totalCobblestones);
+        }
+
+        [TestMethod]
+        public void TestMethod3()
+        {
+            int totalCobblestones = CalcutateCobblestones(6, 6, 4);
+            Assert.AreEqual(4, totalCobblestones);
         }
 
         int CalcutateCobblestones(double squareLength, double squareWidth, double cobblestoneSide)
         {
-            double squareArea = squareLength * squareWidth;
-            double cobblestoneArea = cobblestoneSide * cobblestoneSide;
-            double cobblestones = squareArea / cobblestoneArea;
-            return (int)Math.Ceiling(cobblestones);
+            int cobblestonesPerLenght = (int)Math.Ceiling(squareLength / cobblestoneSide);
+            int cobblestonePerWidth = (int)Math.Ceiling(squareWidth / cobblestoneSide);
+            return cobblestonePerWidth*cobblestonesPerLenght;
         }
     }
 }
