@@ -31,8 +31,11 @@ namespace BankRates
         [TestMethod]
         public void RateForThirdMonthOfForthYear()
         {
-            decimal rate = CalculateBankRate(40000m, 240, 7.57m, 39);
-            Assert.AreEqual(379.0472620172917m, rate);
+            decimal rateActual = CalculateBankRate(40000, 240, 7.57m, 39);
+            decimal rateExpected = 379.0472620172917m;
+            //Assert.AreEqual(rateExpected, rateActual);
+            Assert.AreEqual(rateExpected, rateActual, 0.0001);
+
         }
 
         decimal CalculateBankRate(decimal total, int periodInMonths, decimal interestPerYear, int currentMonth)
