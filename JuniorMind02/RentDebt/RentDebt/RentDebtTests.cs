@@ -27,7 +27,11 @@ namespace RentDebt
 
         decimal CalculateRent(decimal rent, int daysDelay)
         {
-            return rent*2/100*daysDelay+rent;
+            int penalty = 0;
+            if (daysDelay > 0 && daysDelay <= 10)  penalty = 2;
+            if (daysDelay > 10 && daysDelay <= 30) penalty = 5;
+            if (daysDelay > 30 && daysDelay <= 40) penalty = 10;
+            return rent*penalty/100*daysDelay+rent;
         }
     }
 }
