@@ -25,6 +25,12 @@ namespace RentDebt
             Assert.AreEqual(45m, CalculateRent(10, 35));
         }
 
+        [TestMethod]
+        public void Delay0Days()
+        {
+            Assert.AreEqual(10, CalculateRent(10, 0));
+        }
+
         decimal CalculateRent(decimal rent, int daysDelay)
         {
             int penalty = 0;
