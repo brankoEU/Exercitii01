@@ -19,15 +19,24 @@ namespace FizzBuzz
             Assert.AreEqual("Buzz", FizzBuzz(5));
         }
 
+        [TestMethod]
+        public void TestMethod3()
+        {
+            Assert.AreEqual("FizzBuzz", FizzBuzz(15));
+        }
+
+        [TestMethod]
+        public void TestMethod4()
+        {
+            Assert.AreEqual("Numarul nu este divizibil prin 3 sau 5!", FizzBuzz(8));
+        }
+
         string FizzBuzz(int number)
         {
             int aux = 0;
             if (number % 3 == 0) { aux = 1; }
-            else
-            {
-                if (number % 5 == 0) { aux = 2; }
-                else { if (number % 3 == 0 || number % 5 == 0) { aux = 3; } }
-            }
+            if (number % 5 == 0) { aux = 2; }
+            if (number % 3 == 0 && number % 5 == 0) { aux = 3; } 
             switch(aux)
                 {
                     case 1: return "Fizz";
