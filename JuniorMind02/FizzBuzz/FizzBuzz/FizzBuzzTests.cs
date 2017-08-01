@@ -33,7 +33,7 @@ namespace FizzBuzz
 
         string FizzBuzz(int number)
         {
-            int aux = 0;
+            /*int aux = 0;
             if (number % 3 == 0) { aux = 1; }
             if (number % 5 == 0) { aux = 2; }
             if (number % 3 == 0 && number % 5 == 0) { aux = 3; } 
@@ -43,7 +43,8 @@ namespace FizzBuzz
                     case 2: return "Buzz";
                     case 3: return "FizzBuzz";
                     default: return "Numarul nu este divizibil prin 3 sau 5!";
-                }
+                }*/
+            return number % 3 == 0 && number % 5 == 0 ? "FizzBuzz" : number % 3 == 0 ? "Fizz" : number % 5 == 0 ? "Buzz" : "Numarul nu este divizibil prin 3 sau 5!";
         }
     }
 }
