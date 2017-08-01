@@ -19,9 +19,22 @@ namespace Melone
             Assert.AreEqual("NU", DivideMelon(11));
         }
 
+        [TestMethod]
+        public void TestMethod3()
+        {
+            Assert.AreEqual("MESAJ", DivideMelon(3));
+        }
+
+        [TestMethod]
+        public void TestMethod4()
+        {
+            Assert.AreEqual("DA", DivideMelon(4));
+        }
+
         string DivideMelon(int melonWeight)
         {
-            return melonWeight % 2 != 0 ? "NU" : "DA";
+            if(melonWeight<4) { return "MESAJ"; }
+            else { return melonWeight % 2 != 0 ? "NU" : "DA"; }
         }
     }
 }
