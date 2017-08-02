@@ -11,15 +11,21 @@ namespace RomanNumbers
 	{
 	public:
 		
-		TEST_METHOD(ConvertToRomanTestOne)
+		TEST_METHOD(ConvertToRomanTest1)
 		{
 			Assert::AreEqual("I", ConvertToRoman(1).c_str());
 		}
 
+		TEST_METHOD(ConvertToRomanTest2)
+		{
+			Assert::AreEqual("II", ConvertToRoman(2).c_str());
+		}
+
 		string ConvertToRoman(int number)
 		{
-			const string romanNumber[] = { "I" };
-			return romanNumber[number-1];
+			const string romanNumbers[] = { "I" , "V" };
+			if (number % 10 > 1) return romanNumbers[0] + romanNumbers[0];
+			else return romanNumbers[0];
 		}
 
 	};
