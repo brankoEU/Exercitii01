@@ -25,21 +25,32 @@ namespace TaxiFare
             Assert.AreEqual(600, CalculateTaxiFare(100, 9));
         }
 
-        decimal CalculateTaxiFare(int numberKm, int hour)
+        [TestMethod]
+        public void TestNightTimeShortDistance()
         {
-            decimal[] DayTimePrices = { 5, 8, 6 };
-            decimal pricePerKm = GetPrice(numberKm, DayTimePrices);
-
-            return numberKm * pricePerKm;
+            Assert.AreEqual(35, CalculateTaxiFare(5, 21));
         }
 
-        private static decimal GetPrice(int numberKm, decimal[] DayTimePrices)
+        decimal CalculateTaxiFare(int numberKm, int hour)
         {
-            decimal pricePerKm = DayTimePrices[0]; ;
+            decimal[] DayTimePrices = DayTime(hour);
+            return numberKm * GetPrice(numberKm, DayTime(hour));
+        }
+
+        private static decimal[] DayTime(int hour)
+        {
+            decimal[] DayTimePrices = { 5, 8, 6 };
+            decimal[] NightTimePrices = { 7 };
+            return 8 <= hour && hour < 21 ? DayTimePrices : NightTimePrices;
+        }
+
+        private static decimal GetPrice(int numberKm, decimal[] Prices)
+        {
+            decimal pricePerKm = Prices[0];
             if (IsLongDistance(numberKm))
-                pricePerKm = DayTimePrices[2];
+                pricePerKm = Prices[2];
             else if (IsMediumDistance(numberKm))
-                pricePerKm = DayTimePrices[1];
+                pricePerKm = Prices[1];
             return pricePerKm;
         }
 
