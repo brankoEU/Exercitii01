@@ -13,9 +13,18 @@ namespace TaxiFare
             Assert.AreEqual(25, CalculateTaxiFare(5, 9));
         }
 
+        [TestMethod]
+        public void TestDayTimeMediumDistance()
+        {
+            Assert.AreEqual(240, CalculateTaxiFare(30, 9));
+        }
+
         decimal CalculateTaxiFare(int numberKm, int hour)
         {
-            return numberKm * 5;
+            decimal pricePerKm = 0;
+            if (numberKm >= 21 && numberKm <= 60) pricePerKm = 8;
+            else pricePerKm = 5;
+            return numberKm * pricePerKm;
         }
     }
 }
