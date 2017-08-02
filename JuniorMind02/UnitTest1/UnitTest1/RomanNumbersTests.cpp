@@ -21,11 +21,20 @@ namespace RomanNumbers
 			Assert::AreEqual("II", ConvertToRoman(2).c_str());
 		}
 
+		TEST_METHOD(ConvertToRomanTest3)
+		{
+			Assert::AreEqual("III", ConvertToRoman(3).c_str());
+		}
+
 		string ConvertToRoman(int number)
 		{
+			string romanNr;
 			const string romanNumbers[] = { "I" , "V" };
-			if (number % 10 > 1) return romanNumbers[0] + romanNumbers[0];
-			else return romanNumbers[0];
+			if (number % 10 > 2) romanNr = romanNumbers[0] + romanNumbers[0] + romanNumbers[0];
+			else if (number % 10 > 1) romanNr = romanNumbers[0] + romanNumbers[0];
+			else romanNr = romanNumbers[0];
+
+			return romanNr;
 		}
 
 	};
