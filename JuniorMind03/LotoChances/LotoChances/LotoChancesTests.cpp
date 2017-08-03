@@ -25,6 +25,11 @@ namespace LotoChances
 			Assert::AreEqual(0.00000007151123842018516, CalculateLotoChance(6, 49));
 		}
 
+		TEST_METHOD(ChanceOf5From40Test)
+		{
+			Assert::AreEqual(0.00000151973, CalculateLotoChance(5, 40),0.00000001);
+		}
+
 		double CalculateLotoChance(int numbers, int loto)
 		{
 			
@@ -38,7 +43,7 @@ namespace LotoChances
 
 		double CalculateFactorial(int n)
 		{
-			int fact = 1;
+			double fact = 1;
 			for (int i = 1; i <= n; i++)
 			{
 				fact *= i;
