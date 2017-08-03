@@ -17,18 +17,28 @@ namespace LotoChances
 
 		TEST_METHOD(ChanceOfOneFromTenTest)
 		{
-			Assert::AreEqual(10.0, CalculateLotoChance(1, 10));
+			Assert::AreEqual(0.1, CalculateLotoChance(1, 10));
 		}
 
 		TEST_METHOD(ChanceOf3From10Test)
 		{
-			Assert::AreEqual(120.0, CalculateLotoChance(3, 10));
+			Assert::AreEqual(0.00833333, CalculateLotoChance(3, 10),0.00000001);
+		}
+
+		TEST_METHOD(ChanceOf6From49Test)
+		{
+			Assert::AreEqual(0.00000007151123842018516, CalculateLotoChance(6, 49));
 		}
 
 		double CalculateLotoChance(int numbers, int loto)
 		{
-			double chance = CalculateFactorial(loto) / (CalculateFactorial(numbers)*CalculateFactorial(loto - numbers));
-			return chance;
+			
+			return 1 / CalculateCombinations(loto, numbers);
+		}
+
+		double CalculateCombinations(int n, int k)
+		{
+			return CalculateFactorial(n) / (CalculateFactorial(k)*CalculateFactorial(n - k));
 		}
 
 		double CalculateFactorial(int n)
