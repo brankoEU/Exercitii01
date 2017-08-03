@@ -10,12 +10,7 @@ namespace LotoChances
 	{
 	public:
 		
-		TEST_METHOD(CalculateFactorialTest)
-		{
-			Assert::AreEqual(6.0, CalculateFactorial(3));
-		}
-
-		TEST_METHOD(ChanceOfOneFromTenTest)
+		TEST_METHOD(ChanceOf1From10Test)
 		{
 			Assert::AreEqual(0.1, CalculateLotoChance(1, 10));
 		}
