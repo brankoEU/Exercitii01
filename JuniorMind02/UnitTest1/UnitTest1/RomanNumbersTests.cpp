@@ -46,13 +46,26 @@ namespace RomanNumbers
 			Assert::AreEqual("XLVIII", ConvertToRoman(48).c_str());
 		}
 
+		TEST_METHOD(ConvertToRomanTestFor100)
+		{
+			Assert::AreEqual("C", ConvertToRoman(100).c_str());
+		}
+
+		TEST_METHOD(NumberNotInRangeTest)
+		{
+			Assert::AreEqual("Number not in range!", ConvertToRoman(101).c_str());
+		}
+
 		string ConvertToRoman(int number)
 		{
 			string romanNr;
 			const string smallRomanNumbers[] = { "I" , "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" };
 			const string bigRomanNumbers[] = { "X" , "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC" , "C" };
-			if (number / 10 > 0) romanNr += bigRomanNumbers[number / 10 - 1];
-			if (number % 10 > 0) romanNr += smallRomanNumbers[number % 10 - 1];
+			if (number < 1 || number > 100) romanNr = "Number not in range!";
+			else {
+				if (number / 10 > 0) romanNr += bigRomanNumbers[number / 10 - 1];
+				if (number % 10 > 0) romanNr += smallRomanNumbers[number % 10 - 1];
+			}
 			return romanNr;
 		}
 
