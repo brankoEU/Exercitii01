@@ -19,6 +19,11 @@ namespace TablaDeSah
 			Assert::AreEqual(5, CalculateChessSquares(2));
 		}
 
+		TEST_METHOD(SquaresFor8x8)
+		{
+			Assert::AreEqual(204, CalculateChessSquares(8));
+		}
+
 		int CalculateChessSquares(int dimension)
 		{
 			int totalSquares = 0;
