@@ -21,9 +21,24 @@ namespace ExcelColumns
 			Assert::AreEqual("AB", LetterCombinationForExcelColums(28).c_str());
 		}
 
-		TEST_METHOD(ColumnWithTreeLeters)
+		TEST_METHOD(ColumnContainingLeterZ)
 		{
 			Assert::AreEqual("ACZ", LetterCombinationForExcelColums(754).c_str());
+		}
+
+		TEST_METHOD(ColumnWithBGNLeters)
+		{
+			Assert::AreEqual("BGN", LetterCombinationForExcelColums(1548).c_str());
+		}
+
+		TEST_METHOD(ColumnWithFourLeters)
+		{
+			Assert::AreEqual("DXVY", LetterCombinationForExcelColums(87125).c_str());
+		}
+
+		TEST_METHOD(ColumnAZZZ)
+		{
+			Assert::AreEqual("AZZZ", LetterCombinationForExcelColums(17576).c_str());
 		}
 
 		string LetterCombinationForExcelColums(int number)
