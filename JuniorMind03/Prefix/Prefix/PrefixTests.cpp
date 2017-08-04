@@ -26,6 +26,16 @@ namespace Prefix
 			Assert::AreEqual("aaab", GetTextPrefix("aaabcjh", "aaabbaa").c_str());
 		}
 
+		TEST_METHOD(TestMethod4)
+		{
+			Assert::AreEqual("ada", GetTextPrefix("adam", "adabbaa").c_str());
+		}
+
+		TEST_METHOD(TestMethod5)
+		{
+			Assert::AreEqual("a", GetTextPrefix("axamodevbg", "adabbaa").c_str());
+		}
+
 		string GetTextPrefix(string text1, string text2)
 		{
 			string prefix = "";
