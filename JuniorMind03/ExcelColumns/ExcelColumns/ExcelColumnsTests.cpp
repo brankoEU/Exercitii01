@@ -19,8 +19,10 @@ namespace ExcelColumns
 
 		string LetterCombinationForExcelColums(int number)
 		{
-			char alphabet[1][26] = { "ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
-			return alphabet[3];
+			const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			string columnName = "";
+			columnName += alphabet[number - 1];
+			return columnName;
 		}
 
 	};
