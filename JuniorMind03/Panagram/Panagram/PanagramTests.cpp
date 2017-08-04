@@ -16,14 +16,27 @@ namespace Panagram
 			Assert::AreEqual("no", CheckPanagram("a", "b").c_str());
 		}
 
+		TEST_METHOD(TestMethod2)
+		{
+			Assert::AreEqual("yes", CheckPanagram("abc", "abc").c_str());
+		}
+
 		string CheckPanagram(string text, string alphabet)
 		{
 			//const string alphabet = "abcdefghijklmnopqrstuvwxyz";
-			//int textLength = text.length();
 			bool isPanagram = true;
-			for (int i = 0; i < alphabet.length(); i++)
+			int alphabetIndex = 0;
+			while (isPanagram && alphabetIndex < alphabet.length())
 			{
-				if (alphabet[i] != text[0]) { isPanagram = false; }
+				int i = 0;
+				isPanagram = false;
+				while (!isPanagram && i < text.length())
+				{
+					if (alphabet[alphabetIndex] == text[i]) { isPanagram = true; }
+					i++;
+				}
+
+				alphabetIndex++;
 			}
 
 			if (isPanagram) return "yes";
