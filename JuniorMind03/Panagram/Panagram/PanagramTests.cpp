@@ -21,6 +21,21 @@ namespace Panagram
 			Assert::AreEqual("yes", CheckPanagram("abc", "abc").c_str());
 		}
 
+		TEST_METHOD(TestMethod3)
+		{
+			Assert::AreEqual("no", CheckPanagram("ac", "abc").c_str());
+		}
+
+		TEST_METHOD(TestMethod4)
+		{
+			Assert::AreEqual("yes", CheckPanagram("abcdef", "abcdef").c_str());
+		}
+
+		TEST_METHOD(TestMethod5Final)
+		{
+			Assert::AreEqual("yes", CheckPanagram("The quick brown fox jumps over the lazy dog", "abcdefghijklmnopqrstuvwxyz").c_str());
+		}
+
 		string CheckPanagram(string text, string alphabet)
 		{
 			//const string alphabet = "abcdefghijklmnopqrstuvwxyz";
