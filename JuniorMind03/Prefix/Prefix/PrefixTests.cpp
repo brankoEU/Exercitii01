@@ -18,7 +18,12 @@ namespace Prefix
 
 		string GetTextPrefix(string text1, string text2)
 		{
-			return"";
+			string prefix = "";
+			if (text1[0]==text2[0])
+			{
+				prefix += text1[0];
+			}
+			return prefix;
 		}
 
 	};
