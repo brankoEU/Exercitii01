@@ -24,6 +24,16 @@ namespace LunchMeeting
 			Assert::AreEqual(12, CalculateDaysToNextMeeting(4, 6));
 		}
 
+		TEST_METHOD(TestCMMC7And18)
+		{
+			Assert::AreEqual(126, CalculateDaysToNextMeeting(7, 18));
+		}
+
+		TEST_METHOD(TestCMMC18And124)
+		{
+			Assert::AreEqual(1116, CalculateDaysToNextMeeting(18, 124));
+		}
+
 		int CalculateDaysToNextMeeting(int numberOne, int numberTwo)
 		{
 			return CalculateCMMMC(numberOne, numberTwo);
