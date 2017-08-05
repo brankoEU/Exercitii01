@@ -26,9 +26,13 @@ namespace LunchMeeting
 
 		int CalculateDaysToNextMeeting(int numberOne, int numberTwo)
 		{
+			return CalculateCMMMC(numberOne, numberTwo);
+		}
+
+		int CalculateCMMMC(int a, int b)
+		{
 			//calcul CMMMC
-			
-			return numberOne*numberTwo / CalculateCMMDC(numberTwo, numberOne);
+			return a * b / CalculateCMMDC(a, b);
 		}
 
 		int CalculateCMMDC(int a, int b)
