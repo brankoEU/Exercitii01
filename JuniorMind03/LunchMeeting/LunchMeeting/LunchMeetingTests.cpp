@@ -9,14 +9,22 @@ namespace LunchMeeting
 	{
 	public:
 		
-		TEST_METHOD(TestFor2And4)
+		TEST_METHOD(TestCMMDC2And4)
 		{
-			Assert::AreEqual(4, CalculateDaysToNextMeeting(2, 4));
+			Assert::AreEqual(2, CalculateDaysToNextMeeting(2, 4));
 		}
 
-		int CalculateDaysToNextMeeting(int numaberOne, int numberTwo)
+		int CalculateDaysToNextMeeting(int numberOne, int numberTwo)
 		{
-			return 0;
+			//calcul CMMDC
+			while (numberTwo != 0)
+			{
+				int aux = numberTwo;
+			    numberTwo = numberOne%numberTwo;
+				numberOne = aux;
+			}
+
+			return numberOne;
 		}
 
 	};
