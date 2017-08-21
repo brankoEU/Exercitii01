@@ -20,6 +20,16 @@ namespace Cub
 			Assert::AreEqual(442, CalculateCube(2));
 		}
 
+		TEST_METHOD(ThirdCube)
+		{
+			Assert::AreEqual(692, CalculateCube(3));
+		}
+		
+		TEST_METHOD(ForthCube)
+		{
+			Assert::AreEqual(942, CalculateCube(4));
+		}
+
 		int CalculateCube(int k) 
 		{
 			int count = 0;
