@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include <string>
+#include <algorithm>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
@@ -39,27 +40,11 @@ namespace Prefix
 		string GetTextPrefix(string text1, string text2)
 		{
 			string prefix = "";
-			bool found = true;
-			int index = 0;
-			do
-			{
-				found = false;
-				if (text1[index] == text2[index])
-				{
-					prefix += text1[index];
-					found = true;
-				}
-				index++;
-			} while (found && StringNotEnded(index, text1, text2));
-			
+
+			for (int i = 0; i < min(text1.length(), text2.length()) && text1[i] == text2[i]; i++)    
+				prefix += text1[i];
 			
 			return prefix;
 		}
-
-		bool StringNotEnded(int i, std::string &text1, std::string &text2)
-		{
-			return i<text1.length() || i<text2.length();
-		}
-
 	};
 }
