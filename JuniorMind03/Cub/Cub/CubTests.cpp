@@ -15,6 +15,11 @@ namespace Cub
 			Assert::AreEqual(192, CalculateCube(1));
 		}
 
+		TEST_METHOD(SecondCube)
+		{
+			Assert::AreEqual(442, CalculateCube(2));
+		}
+
 		int CalculateCube(int k) 
 		{
 			int count = 0;
