@@ -38,16 +38,15 @@ namespace Panagram
 
 		string CheckPanagram(string text, string alphabet)
 		{
-			//const string alphabet = "abcdefghijklmnopqrstuvwxyz";
 			bool isPanagram = true;
 			int alphabetIndex = 0;
-			while (isPanagram && alphabetIndex < alphabet.length())
+			while (isPanagram && alphabetIndex < 26)
 			{
 				int i = 0;
 				isPanagram = false;
 				while (!isPanagram && i < text.length())
 				{
-					if (alphabet[alphabetIndex] == text[i]) { isPanagram = true; }
+					if (char(97 + alphabetIndex) == text[i]) { isPanagram = true; }
 					i++;
 				}
 
