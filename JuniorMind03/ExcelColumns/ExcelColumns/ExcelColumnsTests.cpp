@@ -21,11 +21,6 @@ namespace ExcelColumns
 			Assert::AreEqual("AB", LetterCombinationForExcelColums(28).c_str());
 		}
 
-		TEST_METHOD(ColumnContainingLeterZ)
-		{
-			Assert::AreEqual("ACZ", LetterCombinationForExcelColums(754).c_str());
-		}
-
 		TEST_METHOD(ColumnWithBGNLeters)
 		{
 			Assert::AreEqual("BGN", LetterCombinationForExcelColums(1548).c_str());
@@ -36,23 +31,37 @@ namespace ExcelColumns
 			Assert::AreEqual("DXVY", LetterCombinationForExcelColums(87125).c_str());
 		}
 
-		TEST_METHOD(ColumnAZZZ)
+		TEST_METHOD(ColumnAZ)
 		{
-			Assert::AreEqual("AZZZ", LetterCombinationForExcelColums(17576).c_str());
+			Assert::AreEqual("AZ", LetterCombinationForExcelColums(52).c_str());
+		}
+
+		TEST_METHOD(ColumnBA)
+		{
+			Assert::AreEqual("BA", LetterCombinationForExcelColums(53).c_str());
+		}
+
+		TEST_METHOD(ColumnBZ)
+		{
+			Assert::AreEqual("BZ", LetterCombinationForExcelColums(78).c_str());
 		}
 
 		string LetterCombinationForExcelColums(int number)
 		{
-			const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			string columnName = "";
-			int strLength = alphabet.length();
 
 			while (number > 0)
 			{
-				if (number % strLength == 0) { columnName = alphabet[strLength - 1] + columnName; }
+				if (number % 26 == 0)
+				{ 
+					columnName = char(64+26) + columnName;
+					number--;
+				}
 				else
-				{ columnName = alphabet[number % strLength - 1] + columnName; }
-				number /= strLength;
+				{ 
+					columnName = char(64 + number % 26) + columnName;
+				}
+				number /= 26;
 			}
 			
 			return columnName;
