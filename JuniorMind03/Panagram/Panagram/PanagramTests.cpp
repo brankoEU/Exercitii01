@@ -18,7 +18,7 @@ namespace Panagram
 
 		TEST_METHOD(TestMethod2)
 		{
-			Assert::AreEqual("yes", CheckPanagram("abc", "abc").c_str());
+			Assert::AreEqual("no", CheckPanagram("abc", "abc").c_str());
 		}
 
 		TEST_METHOD(TestMethod3)
@@ -28,7 +28,7 @@ namespace Panagram
 
 		TEST_METHOD(TestMethod4)
 		{
-			Assert::AreEqual("yes", CheckPanagram("abcdef", "abcdef").c_str());
+			Assert::AreEqual("no", CheckPanagram("abcdef", "abcdef").c_str());
 		}
 
 		TEST_METHOD(TestMethod5Final)
