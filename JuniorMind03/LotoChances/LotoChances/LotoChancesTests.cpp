@@ -35,7 +35,7 @@ namespace LotoChances
 			Assert::AreEqual(5.24415748e-7, CalculateLotoChance(5, 49), 0.00000001);
 		}
 
-		TEST_METHOD(ChanceOf4From40Test)
+		TEST_METHOD(ChanceOf4From49Test)
 		{
 			Assert::AreEqual(0.00000471974, CalculateLotoChance(4, 49), 0.00000001);
 		}

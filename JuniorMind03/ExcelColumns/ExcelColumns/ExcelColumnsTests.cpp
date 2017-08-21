@@ -52,15 +52,8 @@ namespace ExcelColumns
 
 			while (number > 0)
 			{
-				if (number % 26 == 0)
-				{ 
-					columnName = char(64+26) + columnName;
-					number--;
-				}
-				else
-				{ 
-					columnName = char(64 + number % 26) + columnName;
-				}
+				number--;
+				columnName = char('A' + number % 26) + columnName;
 				number /= 26;
 			}
 			

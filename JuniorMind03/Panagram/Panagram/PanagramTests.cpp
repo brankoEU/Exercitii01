@@ -46,7 +46,7 @@ namespace Panagram
 				isPanagram = false;
 				while (!isPanagram && i < text.length())
 				{
-					if (char(97 + alphabetIndex) == text[i]) { isPanagram = true; }
+					if (char('a' + alphabetIndex) == text[i]) { isPanagram = true; }
 					i++;
 				}
 
