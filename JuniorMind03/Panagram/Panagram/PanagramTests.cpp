@@ -13,30 +13,30 @@ namespace Panagram
 		
 		TEST_METHOD(TestMethod1)
 		{
-			Assert::AreEqual("no", CheckPanagram("a", "b").c_str());
+			Assert::AreEqual("no", CheckPanagram("a").c_str());
 		}
 
 		TEST_METHOD(TestMethod2)
 		{
-			Assert::AreEqual("no", CheckPanagram("abc", "abc").c_str());
+			Assert::AreEqual("no", CheckPanagram("abc").c_str());
 		}
 
 		TEST_METHOD(TestMethod3)
 		{
-			Assert::AreEqual("no", CheckPanagram("ac", "abc").c_str());
+			Assert::AreEqual("no", CheckPanagram("ac").c_str());
 		}
 
 		TEST_METHOD(TestMethod4)
 		{
-			Assert::AreEqual("no", CheckPanagram("abcdef", "abcdef").c_str());
+			Assert::AreEqual("no", CheckPanagram("abcdef").c_str());
 		}
 
 		TEST_METHOD(TestMethod5Final)
 		{
-			Assert::AreEqual("yes", CheckPanagram("The quick brown fox jumps over the lazy dog", "abcdefghijklmnopqrstuvwxyz").c_str());
+			Assert::AreEqual("yes", CheckPanagram("The quick brown fox jumps over the lazy dog").c_str());
 		}
 
-		string CheckPanagram(string text, string alphabet)
+		string CheckPanagram(string text)
 		{
 			bool isPanagram = true;
 			int alphabetIndex = 0;
