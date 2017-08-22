@@ -13,12 +13,23 @@ namespace Anagrame
 		
 		TEST_METHOD(TestMethod1)
 		{
-			Assert::AreEqual(1, CalculateAnagrams("ab"));
+			Assert::AreEqual(2.0, CalculateAnagrams("ab"));
 		}
 
-		int CalculateAnagrams(string text)
+		double CalculateAnagrams(string text)
 		{
-			return 0;
+			return CalculateFactorial(text.length())/CalculateFactorial(text.length()-2);
+		}
+
+		double CalculateFactorial(int n)
+		{
+			double fact = 1;
+			for (int i = 1; i <= n; i++)
+			{
+				fact *= i;
+			}
+
+			return fact;
 		}
 
 	};
