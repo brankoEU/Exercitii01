@@ -32,18 +32,26 @@ namespace Anagrame
 			Assert::AreEqual(3, CalculateAnagrams("aac"));
 		}
 
+		TEST_METHOD(TestMethod4)
+		{
+			Assert::AreEqual(1, CalculateAnagrams("aaaaa"));
+		}
 
+		TEST_METHOD(TestMethod5)
+		{
+			Assert::AreEqual(6, CalculateAnagrams("aabb"));
+		}
 
 		int CalculateAnagrams(string text)
 		{
 			int repetitions = 0;
-			for (int i = 0; i < text.length(); i++)
+			for (int i = 'a'; i <= 'z'; i++)
 			{
-				if(CheckDuplicates(text, text[i])>1)
-				repetitions += CheckDuplicates(text, text[i]);
+				if(CheckDuplicates(text, i)>1)
+				repetitions += CheckDuplicates(text, i);
 			}
-			return repetitions;
-			//return CalculateFactorial(text.length())/CalculateFactorial(repetitions);
+
+			return CalculateFactorial(text.length())/CalculateFactorial(repetitions);
 		}
 
 		int CheckDuplicates(string text, char charToCheck)
