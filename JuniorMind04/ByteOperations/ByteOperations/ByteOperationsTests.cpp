@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
+#include <string>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace std;
 
 namespace ByteOperations
 {		
@@ -11,7 +13,12 @@ namespace ByteOperations
 		
 		TEST_METHOD(TestMethod1)
 		{
-			// TODO: Your test code here
+			Assert::AreEqual("1010", ConvertToBaseTwo(10).c_str());
+		}
+		
+		string ConvertToBaseTwo(int number)
+		{
+			return "";
 		}
 
 	};
