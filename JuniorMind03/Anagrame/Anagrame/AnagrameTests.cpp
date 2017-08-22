@@ -51,12 +51,12 @@ namespace Anagrame
 		{
 			int repetitions = 1;
 			string charsChecked = "";
-			for (int i = 'a'; i <= 'z'; i++)
+			for (int i = 0; i < text.length(); i++)
 			{
-				if (CheckDuplicates(text, i) > 1 && CheckDuplicates(charsChecked, i) < 1)
+				if (CheckDuplicates(text, text[i]) > 1 && CheckDuplicates(charsChecked, text[i]) < 1)
 				{
-					charsChecked += i;
-					repetitions *= CalculateFactorial(CheckDuplicates(text, i));
+					charsChecked += text[i];
+					repetitions *= CalculateFactorial(CheckDuplicates(text, text[i]));
 				}
 			}
 			return CalculateFactorial(text.length())/repetitions;
