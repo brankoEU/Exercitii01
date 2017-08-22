@@ -18,7 +18,14 @@ namespace ByteOperations
 		
 		string ConvertToBaseTwo(int number)
 		{
-			return "";
+			string bin = "";
+			while (number > 0)
+			{
+				if(number % 2>0) bin = '1' + bin;
+				else bin = '0' + bin;
+				number /= 2;
+			}
+			return bin;
 		}
 
 	};
