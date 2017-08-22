@@ -16,6 +16,11 @@ namespace Anagrame
 			Assert::AreEqual(2.0, CalculateAnagrams("ab"));
 		}
 
+		TEST_METHOD(TestMethod2)
+		{
+			Assert::AreEqual(6.0, CalculateAnagrams("abc"));
+		}
+
 		double CalculateAnagrams(string text)
 		{
 			return CalculateFactorial(text.length())/CalculateFactorial(text.length()-2);
