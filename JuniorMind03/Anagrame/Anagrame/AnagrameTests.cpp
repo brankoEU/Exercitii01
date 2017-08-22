@@ -42,6 +42,11 @@ namespace Anagrame
 			Assert::AreEqual(6, CalculateAnagrams("aabb"));
 		}
 
+		TEST_METHOD(TestMethod6)
+		{
+			Assert::AreEqual(60, CalculateAnagrams("aaabbc"));
+		}
+
 		int CalculateAnagrams(string text)
 		{
 			int repetitions = 1;
