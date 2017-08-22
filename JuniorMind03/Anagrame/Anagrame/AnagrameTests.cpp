@@ -44,14 +44,17 @@ namespace Anagrame
 
 		int CalculateAnagrams(string text)
 		{
-			int repetitions = 0;
+			int repetitions = 1;
+			string charsChecked = "";
 			for (int i = 'a'; i <= 'z'; i++)
 			{
-				if(CheckDuplicates(text, i)>1)
-				repetitions += CheckDuplicates(text, i);
+				if (CheckDuplicates(text, i) > 1 && CheckDuplicates(charsChecked, i) < 1)
+				{
+					charsChecked += i;
+					repetitions *= CalculateFactorial(CheckDuplicates(text, i));
+				}
 			}
-
-			return CalculateFactorial(text.length())/CalculateFactorial(repetitions);
+			return CalculateFactorial(text.length())/repetitions;
 		}
 
 		int CheckDuplicates(string text, char charToCheck)
