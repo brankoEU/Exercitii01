@@ -48,12 +48,12 @@ namespace LotoChances
 
 		double CalculateProbability(int m, int n, int k)
 		{
-			return CalculateCombinations(n, k) / CalculateCombinations(k, m)*CalculateCombinations(n - k, k - m);
+			return CalculateCombinations(n, k) / (CalculateCombinations(k, m)*CalculateCombinations(n - k, k - m));
 		}
 
 		double CalculateCombinations(int n, int k)
 		{
-			return CalculateFactorial(n) / (CalculateFactorial(k)*CalculateFactorial(n - k));
+			return CalculateFactorial(n) / ((CalculateFactorial(k)*CalculateFactorial(n - k)));
 		}
 
 		double CalculateFactorial(int n)
