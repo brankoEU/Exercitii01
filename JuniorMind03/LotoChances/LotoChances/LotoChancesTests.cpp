@@ -53,7 +53,7 @@ namespace LotoChances
 
 		double CalculateCombinations(int n, int k)
 		{
-			return CalculateFactorial(n) / ((CalculateFactorial(k)*CalculateFactorial(n - k)));
+			return CalculateFactorial(n) / (CalculateFactorial(k)*CalculateFactorial(n - k));
 		}
 
 		double CalculateFactorial(int n)
