@@ -80,21 +80,12 @@ namespace ByteOperations
 		vector<char> And(vector<char> bin1, vector<char> bin2)
 		{
 			vector<char> bin;
-			if (bin1.size() != bin2.size())
+			for (int i = 0; i < min(bin1.size(), bin2.size()); i++)
 			{
-				for (int i = 1; i < max(bin1.size(), bin2.size()); i++)
-				{
-					if (bin1.size() < bin2.size()) bin1.insert(bin1.begin(), 0);
-					else bin2.insert(bin2.begin(), 0);
-				}
-			}
-			for (int i = 1; i < bin1.size(); i++)
-			{
-				if (bin1[i] == 1 && bin2[i] == 1) { bin.push_back(1); }
+				if (Reverse(bin1)[i] == 1 && Reverse(bin2)[i] == 1) { bin.push_back(1); }
 				else { bin.push_back(0); }
 			}
-
-			return RemoveBeginingZero(bin);
+			return RemoveBeginingZero(Reverse(bin));
 		}
 
 	};
