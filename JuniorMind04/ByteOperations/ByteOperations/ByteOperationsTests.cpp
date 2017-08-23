@@ -80,12 +80,6 @@ namespace ByteOperations
 			return bin;
 		}
 
-		vector<char> Reverse(std::vector<char> bin)
-		{
-			reverse(bin.begin(), bin.end());
-			return bin;
-		}
-
 		vector<char> Not(vector<char> bin)
 		{
 			for (int i = 0; i < bin.size(); i++)
@@ -109,9 +103,9 @@ namespace ByteOperations
 			vector<char> bin;
 			for (int i = 0; i < min(bin1.size(), bin2.size()); i++)
 			{
-				GetAt(bin1, i) && GetAt(bin2, i) == 1 ? bin.push_back(1) : bin.push_back(0);
+				GetAt(bin1, i) && GetAt(bin2, i) == 1 ? bin.insert(bin.begin(), 1) : bin.insert(bin.begin(), 0);
 			}
-			return RemoveBeginingZero(Reverse(bin));
+			return RemoveBeginingZero(bin);
 		}
 
 		int GetAt(vector<char> vector, int position)
@@ -124,9 +118,9 @@ namespace ByteOperations
 			vector<char> bin;
 			for (int i = 0; i < max(bin1.size(), bin2.size()); i++)
 			{
-				GetAt(bin1, i) || GetAt(bin2, i) == 1 ? bin.push_back(1) : bin.push_back(0);
+				GetAt(bin1, i) || GetAt(bin2, i) == 1 ? bin.insert(bin.begin(), 1) : bin.insert(bin.begin(), 0);
 			}
-			return RemoveBeginingZero(Reverse(bin));
+			return RemoveBeginingZero(bin);
 		}
 
 		vector<char> Xor(vector<char> bin1, vector<char> bin2)
@@ -134,9 +128,9 @@ namespace ByteOperations
 			vector<char> bin;
 			for (int i = 0; i < max(bin1.size(), bin2.size()); i++)
 			{
-				GetAt(bin1, i) == GetAt(bin2, i) ? bin.push_back(0) : bin.push_back(1);
+				GetAt(bin1, i) == GetAt(bin2, i) ? bin.insert(bin.begin(), 0) : bin.insert(bin.begin(), 1);
 			}
-			return RemoveBeginingZero(Reverse(bin));
+			return RemoveBeginingZero(bin);
 		}
 
 		vector<char> ShiftLeft(vector<char> bin, int positions)
