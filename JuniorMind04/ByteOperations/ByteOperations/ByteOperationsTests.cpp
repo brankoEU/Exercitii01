@@ -44,12 +44,17 @@ namespace ByteOperations
 
 		TEST_METHOD(GetAtFunction)
 		{
-			Assert::AreEqual(1, GetAt({ 1, 0, 1 }, 2));
+			Assert::AreEqual(1, GetAt({ 1, 1 }, 0));
 		}
 
 		TEST_METHOD(UseOrOperator)
 		{
 			Assert::AreEqual(ToBinary(5 | 3), Or(ToBinary(5), ToBinary(3)));
+		}
+
+		TEST_METHOD(UseXorOperator)
+		{
+			Assert::AreEqual(ToBinary(5 ^ 3), Xor(ToBinary(5), ToBinary(3)));
 		}
 		
 		vector<char> ToBinary(int number)
@@ -108,6 +113,16 @@ namespace ByteOperations
 			for (int i = 0; i < max(bin1.size(), bin2.size()); i++)
 			{
 				GetAt(bin1, i) || GetAt(bin2, i) == 1 ? bin.push_back(1) : bin.push_back(0);
+			}
+			return RemoveBeginingZero(Reverse(bin));
+		}
+
+		vector<char> Xor(vector<char> bin1, vector<char> bin2)
+		{
+			vector<char> bin;
+			for (int i = 0; i < max(bin1.size(), bin2.size()); i++)
+			{
+				GetAt(bin1, i) == GetAt(bin2, i) ? bin.push_back(0) : bin.push_back(1);
 			}
 			return RemoveBeginingZero(Reverse(bin));
 		}
