@@ -60,6 +60,13 @@ namespace ByteOperations
 		TEST_METHOD(ShiftLeftOperator)
 		{
 			Assert::AreEqual(ToBinary(8), ShiftLeft(ToBinary(1), 3));
+			Assert::AreEqual(ToBinary(20), ShiftLeft(ToBinary(5), 2));
+		}
+
+		TEST_METHOD(ShiftRightOperator)
+		{
+			Assert::AreEqual(ToBinary(1), ShiftRight(ToBinary(8), 3));
+			Assert::AreEqual(ToBinary(12), ShiftRight(ToBinary(50), 2));
 		}
 		
 		vector<char> ToBinary(int number)
@@ -67,10 +74,10 @@ namespace ByteOperations
 			vector<char> bin;
 			while (number > 0)
 			{
-				bin.push_back(number % 2);
+				bin.insert(bin.begin(), number % 2);
 				number /= 2;
 			}
-			return Reverse(bin);
+			return bin;
 		}
 
 		vector<char> Reverse(std::vector<char> bin)
@@ -135,6 +142,12 @@ namespace ByteOperations
 		vector<char> ShiftLeft(vector<char> bin, int positions)
 		{
 			for (int i = 0; i < positions; i++) bin.push_back(0);
+			return bin;
+		}
+
+		vector<char> ShiftRight(vector<char> bin, int positions)
+		{
+			for (int i = 0; i < positions; i++) bin.pop_back();
 			return bin;
 		}
 
