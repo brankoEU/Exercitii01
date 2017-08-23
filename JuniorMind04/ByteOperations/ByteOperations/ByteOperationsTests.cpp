@@ -36,6 +36,11 @@ namespace ByteOperations
 		{
 			Assert::AreEqual({ 1, 1 }, RemoveBeginingZero({ 0, 0, 1, 1 }));
 		}
+
+		TEST_METHOD(UseAndOperator)
+		{
+			Assert::AreEqual(ToBinary(5 && 3), And(ToBinary(5), ToBinary(3)));
+		}
 		
 		vector<char> ToBinary(int number)
 		{
@@ -45,6 +50,11 @@ namespace ByteOperations
 				bin.push_back(number % 2);
 				number /= 2;
 			}
+			return Reverse(bin);
+		}
+
+		vector<char> Reverse(std::vector<char> bin)
+		{
 			reverse(bin.begin(), bin.end());
 			return bin;
 		}
@@ -64,8 +74,27 @@ namespace ByteOperations
 			{
 				bin.erase(bin.begin());
 			}
-			
 			return bin;
+		}
+
+		vector<char> And(vector<char> bin1, vector<char> bin2)
+		{
+			vector<char> bin;
+			if (bin1.size() != bin2.size())
+			{
+				for (int i = 1; i < max(bin1.size(), bin2.size()); i++)
+				{
+					if (bin1.size() < bin2.size()) bin1.insert(bin1.begin(), 0);
+					else bin2.insert(bin2.begin(), 0);
+				}
+			}
+			for (int i = 1; i < bin1.size(); i++)
+			{
+				if (bin1[i] == 1 && bin2[i] == 1) { bin.push_back(1); }
+				else { bin.push_back(0); }
+			}
+
+			return RemoveBeginingZero(bin);
 		}
 
 	};
