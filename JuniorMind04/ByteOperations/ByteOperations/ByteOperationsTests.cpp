@@ -22,9 +22,14 @@ namespace ByteOperations
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(ConvertIntoBaseTwo)
 		{
 			Assert::AreEqual({ 1, 0, 1, 0 }, ConvertToBaseTwo(10));
+		}
+
+		TEST_METHOD(UseNotOperator)
+		{
+			Assert::AreEqual({ 0, 1, 0, 1 }, NotOperation(10));
 		}
 		
 		vector<char> ConvertToBaseTwo(int number)
@@ -37,6 +42,16 @@ namespace ByteOperations
 			}
 			reverse(bin.begin(), bin.end());
 			return bin;
+		}
+
+		vector<char> NotOperation(int number)
+		{
+			vector<char> bite = ConvertToBaseTwo(number);
+			for (int i = 0; i < bite.size(); i++)
+			{
+				bite[i] = bite[i] == 0 ? 1 : 0;
+			}
+			return bite;
 		}
 
 	};
