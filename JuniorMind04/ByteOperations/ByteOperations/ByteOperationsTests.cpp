@@ -32,7 +32,7 @@ namespace ByteOperations
 			Assert::AreEqual({ 1, 0, 1 }, Not(ToBinary(10)));
 		}
 
-		TEST_METHOD(RemoveZeros)
+		TEST_METHOD(TestFunctionRemoveZeros)
 		{
 			Assert::AreEqual({ 1, 1 }, RemoveBeginingZero({ 0, 0, 1, 1 }));
 		}
@@ -42,7 +42,7 @@ namespace ByteOperations
 			Assert::AreEqual(ToBinary(5 && 3), And(ToBinary(5), ToBinary(3)));
 		}
 
-		TEST_METHOD(GetAtFunction)
+		TEST_METHOD(TestFunctionGetAt)
 		{
 			Assert::AreEqual(1, GetAt({ 1, 1 }, 0));
 		}
@@ -55,6 +55,11 @@ namespace ByteOperations
 		TEST_METHOD(UseXorOperator)
 		{
 			Assert::AreEqual(ToBinary(5 ^ 3), Xor(ToBinary(5), ToBinary(3)));
+		}
+
+		TEST_METHOD(ShiftLeftOperator)
+		{
+			Assert::AreEqual(ToBinary(8), ShiftLeft(ToBinary(1), 3));
 		}
 		
 		vector<char> ToBinary(int number)
@@ -125,6 +130,12 @@ namespace ByteOperations
 				GetAt(bin1, i) == GetAt(bin2, i) ? bin.push_back(0) : bin.push_back(1);
 			}
 			return RemoveBeginingZero(Reverse(bin));
+		}
+
+		vector<char> ShiftLeft(vector<char> bin, int positions)
+		{
+			for (int i = 0; i < positions; i++) bin.push_back(0);
+			return bin;
 		}
 
 	};
