@@ -87,8 +87,7 @@ namespace ByteOperations
 			vector<char> bin;
 			for (int i = 1; i <= min(bin1.size(), bin2.size()); i++)
 			{
-				GetAt(bin1, i) == GetAt(bin2, i) == 1 ? bin.push_back(1) : bin.push_back(0);
-				//Reverse(bin1)[i] == Reverse(bin2)[i] == 1 ? bin.push_back(1) : bin.push_back(0);
+				GetAt(bin1, i) && GetAt(bin2, i) == 1 ? bin.push_back(1) : bin.push_back(0);
 			}
 			return RemoveBeginingZero(Reverse(bin));
 		}
