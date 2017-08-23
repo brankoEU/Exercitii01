@@ -24,15 +24,20 @@ namespace ByteOperations
 		
 		TEST_METHOD(ConvertIntoBaseTwo)
 		{
-			Assert::AreEqual({ 1, 0, 1, 0 }, ConvertToBaseTwo(10));
+			Assert::AreEqual({ 1, 0, 1, 0 }, ToBinary(10));
 		}
 
 		TEST_METHOD(UseNotOperator)
 		{
-			Assert::AreEqual({ 0, 1, 0, 1 }, NotOperation(10));
+			Assert::AreEqual({ 1, 0, 1 }, Not(ToBinary(10)));
+		}
+
+		TEST_METHOD(RemoveZeros)
+		{
+			Assert::AreEqual({ 1, 1 }, RemoveBeginingZero({ 0, 0, 1, 1 }));
 		}
 		
-		vector<char> ConvertToBaseTwo(int number)
+		vector<char> ToBinary(int number)
 		{
 			vector<char> bin;
 			while (number > 0)
@@ -44,14 +49,23 @@ namespace ByteOperations
 			return bin;
 		}
 
-		vector<char> NotOperation(int number)
+		vector<char> Not(vector<char> bin)
 		{
-			vector<char> bite = ConvertToBaseTwo(number);
-			for (int i = 0; i < bite.size(); i++)
+			for (int i = 0; i < bin.size(); i++)
 			{
-				bite[i] = bite[i] == 0 ? 1 : 0;
+				bin[i] = bin[i] == 0 ? 1 : 0;
 			}
-			return bite;
+			return RemoveBeginingZero(bin);
+		}
+
+		vector<char> RemoveBeginingZero(vector<char> bin)
+		{
+			while (bin[0] == 0)
+			{
+				bin.erase(bin.begin());
+			}
+			
+			return bin;
 		}
 
 	};
