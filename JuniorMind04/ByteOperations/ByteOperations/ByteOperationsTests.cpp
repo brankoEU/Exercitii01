@@ -39,7 +39,7 @@ namespace ByteOperations
 
 		TEST_METHOD(UseAndOperator)
 		{
-			Assert::AreEqual(ToBinary(5 && 3), And(ToBinary(5), ToBinary(3)));
+			Assert::AreEqual(ToBinary(5 && 3), Operations(ToBinary(5), ToBinary(3), "And"));
 		}
 
 		TEST_METHOD(TestFunctionGetAt)
@@ -49,12 +49,12 @@ namespace ByteOperations
 
 		TEST_METHOD(UseOrOperator)
 		{
-			Assert::AreEqual(ToBinary(5 | 3), Or(ToBinary(5), ToBinary(3)));
+			Assert::AreEqual(ToBinary(5 | 3), Operations(ToBinary(5), ToBinary(3), "Or"));
 		}
 
 		TEST_METHOD(UseXorOperator)
 		{
-			Assert::AreEqual(ToBinary(5 ^ 3), Xor(ToBinary(5), ToBinary(3)));
+			Assert::AreEqual(ToBinary(5 ^ 3), Operations(ToBinary(5), ToBinary(3), "Xor"));
 		}
 
 		TEST_METHOD(ShiftLeftOperator)
@@ -98,37 +98,19 @@ namespace ByteOperations
 			return bin;
 		}
 
-		vector<char> And(vector<char> bin1, vector<char> bin2)
-		{
-			vector<char> bin;
-			for (int i = 0; i < min(bin1.size(), bin2.size()); i++)
-			{
-				GetAt(bin1, i) && GetAt(bin2, i) == 1 ? bin.insert(bin.begin(), 1) : bin.insert(bin.begin(), 0);
-			}
-			return RemoveBeginingZero(bin);
-		}
-
 		int GetAt(vector<char> vector, int position)
 		{
 			return position <= (vector.size() - 1) ? vector[(vector.size() - 1) - position] : 0;
 		}
 
-		vector<char> Or(vector<char> bin1, vector<char> bin2)
+		vector<char> Operations(vector<char> bin1, vector<char> bin2, string operation)
 		{
 			vector<char> bin;
 			for (int i = 0; i < max(bin1.size(), bin2.size()); i++)
 			{
-				GetAt(bin1, i) || GetAt(bin2, i) == 1 ? bin.insert(bin.begin(), 1) : bin.insert(bin.begin(), 0);
-			}
-			return RemoveBeginingZero(bin);
-		}
-
-		vector<char> Xor(vector<char> bin1, vector<char> bin2)
-		{
-			vector<char> bin;
-			for (int i = 0; i < max(bin1.size(), bin2.size()); i++)
-			{
-				GetAt(bin1, i) == GetAt(bin2, i) ? bin.insert(bin.begin(), 0) : bin.insert(bin.begin(), 1);
+				if(operation == "And") bin.insert(bin.begin(), GetAt(bin1, i) && GetAt(bin2, i) == 1 ? 1 : 0);
+				if(operation == "Or") bin.insert(bin.begin(), GetAt(bin1, i) || GetAt(bin2, i) == 1 ? 1 : 0);
+				if(operation == "Xor") bin.insert(bin.begin(), GetAt(bin1, i) == GetAt(bin2, i) ? 0 : 1);
 			}
 			return RemoveBeginingZero(bin);
 		}
