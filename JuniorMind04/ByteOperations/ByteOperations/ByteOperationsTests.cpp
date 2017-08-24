@@ -91,7 +91,18 @@ namespace ByteOperations
 		TEST_METHOD(NotEqualOperator)
 		{
 			Assert::AreEqual(true, NotEqual(ToBinary(9), ToBinary(8)));
-			Assert::AreEqual(false, NotEqual(ToBinary(8), ToBinary(8)));;
+			Assert::AreEqual(false, NotEqual(ToBinary(8), ToBinary(8)));
+		}
+
+		TEST_METHOD(TestSumFunction)
+		{
+			Assert::AreEqual(ToBinary(9), Sum(ToBinary(5), ToBinary(4)));
+			Assert::AreEqual(ToBinary(8), Sum(ToBinary(3), ToBinary(5)));
+		}
+
+		TEST_METHOD(TestDifferenceFunction)
+		{
+			Assert::AreEqual(ToBinary(2), Difference(ToBinary(5), ToBinary(3)));
 		}
 		
 		vector<char> ToBinary(int number)
@@ -179,6 +190,23 @@ namespace ByteOperations
 		bool NotEqual(vector<char> bin1, vector<char> bin2)
 		{
 			return !Equal(bin1, bin2);
+		}
+
+		vector<char> Sum(vector<char> bin1, vector<char> bin2)
+		{
+			int carry = 0;
+			vector<char> bin;
+			for (int i = 0; i <= max(bin1.size(), bin2.size()); i++)
+			{
+				bin.insert(bin.begin(), (GetAt(bin1, i) + GetAt(bin2, i) + carry) % 2);
+				carry = (GetAt(bin1, i) + GetAt(bin2, i) + carry) / 2;
+			}
+			return RemoveBeginingZero(bin);
+		}
+
+		vector<char> Difference(vector<char> bin1, vector<char> bin2)
+		{
+			return {};
 		}
 
 	};
