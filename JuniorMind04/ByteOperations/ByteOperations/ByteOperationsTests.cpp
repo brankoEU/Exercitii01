@@ -80,6 +80,19 @@ namespace ByteOperations
 			Assert::AreEqual(true, GraterThan(ToBinary(9), ToBinary(8)));
 			Assert::AreEqual(false, GraterThan(ToBinary(8), ToBinary(8)));
 		}
+
+		TEST_METHOD(EqualOperator)
+		{
+			Assert::AreEqual(false, Equal(ToBinary(9), ToBinary(8)));
+			Assert::AreEqual(true, Equal(ToBinary(8), ToBinary(8)));
+			Assert::AreEqual(false, Equal(ToBinary(7), ToBinary(8)));
+		}
+
+		TEST_METHOD(NotEqualOperator)
+		{
+			Assert::AreEqual(true, NotEqual(ToBinary(9), ToBinary(8)));
+			Assert::AreEqual(false, NotEqual(ToBinary(8), ToBinary(8)));;
+		}
 		
 		vector<char> ToBinary(int number)
 		{
@@ -159,6 +172,18 @@ namespace ByteOperations
 			{
 				if ((GetAt(bin1, i) != GetAt(bin2, i)) && !LessThan(bin1, bin2)) return true;
 			}
+			return false;
+		}
+
+		bool Equal(vector<char> bin1, vector<char> bin2)
+		{
+			if (!GraterThan(bin1, bin2) && !LessThan(bin1, bin2)) return true;
+			return false;
+		}
+
+		bool NotEqual(vector<char> bin1, vector<char> bin2)
+		{
+			if (!Equal(bin1, bin2)) return true;
 			return false;
 		}
 
