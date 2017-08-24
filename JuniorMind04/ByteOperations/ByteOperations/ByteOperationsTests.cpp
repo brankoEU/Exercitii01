@@ -108,11 +108,16 @@ namespace ByteOperations
 			vector<char> bin;
 			for (int i = 0; i < max(bin1.size(), bin2.size()); i++)
 			{
-				if(operation == "And") bin.insert(bin.begin(), GetAt(bin1, i) && GetAt(bin2, i) == 1 ? 1 : 0);
-				if(operation == "Or") bin.insert(bin.begin(), GetAt(bin1, i) || GetAt(bin2, i) == 1 ? 1 : 0);
-				if(operation == "Xor") bin.insert(bin.begin(), GetAt(bin1, i) == GetAt(bin2, i) ? 0 : 1);
+				bin.insert(bin.begin(), ChooseOperation(GetAt(bin1, i), GetAt(bin2, i), operation));
 			}
 			return RemoveBeginingZero(bin);
+		}
+
+		char ChooseOperation(char first, char second, string operation)
+		{
+			if (operation == "And") return first && second == 1 ? 1 : 0;
+			if (operation == "Or")  return first || second == 1 ? 1 : 0;
+			if (operation == "Xor") return first == second ? 0 : 1;
 		}
 
 		vector<char> ShiftLeft(vector<char> bin, int positions)
