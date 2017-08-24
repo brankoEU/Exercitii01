@@ -68,6 +68,12 @@ namespace ByteOperations
 			Assert::AreEqual(ToBinary(1), ShiftRight(ToBinary(8), 3));
 			Assert::AreEqual(ToBinary(12), ShiftRight(ToBinary(50), 2));
 		}
+
+		TEST_METHOD(LessThanOperator)
+		{
+			Assert::AreEqual(false, LessThan(ToBinary(9), ToBinary(8)));
+			Assert::AreEqual(true, LessThan(ToBinary(7), ToBinary(8)));
+		}
 		
 		vector<char> ToBinary(int number)
 		{
@@ -100,7 +106,7 @@ namespace ByteOperations
 
 		int GetAt(vector<char> vector, int position)
 		{
-			return position <= (vector.size() - 1) ? vector[(vector.size() - 1) - position] : 0;
+			return position <= (vector.size() - 1) ? vector[vector.size() - position - 1] : 0;
 		}
 
 		vector<char> Operations(vector<char> bin1, vector<char> bin2, string operation)
@@ -117,7 +123,7 @@ namespace ByteOperations
 		{
 			if (operation == "And") return first && second == 1 ? 1 : 0;
 			if (operation == "Or")  return first || second == 1 ? 1 : 0;
-			if (operation == "Xor") return first == second ? 0 : 1;
+		    return first == second ? 0 : 1;
 		}
 
 		vector<char> ShiftLeft(vector<char> bin, int positions)
@@ -130,6 +136,15 @@ namespace ByteOperations
 		{
 			for (int i = 0; i < positions; i++) bin.pop_back();
 			return bin;
+		}
+
+		bool LessThan(vector<char> bin1, vector<char> bin2)
+		{
+			for (int i = max(bin1.size(), bin2.size()); i >= 0; i--)
+			{
+				if (GetAt(bin1, i) < GetAt(bin2, i)) return true;
+			}
+			return false;
 		}
 
 	};
