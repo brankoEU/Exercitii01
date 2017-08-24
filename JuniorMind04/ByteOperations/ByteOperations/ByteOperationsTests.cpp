@@ -168,7 +168,7 @@ namespace ByteOperations
 
 		bool GraterThan(vector<char> bin1, vector<char> bin2)
 		{
-			if (LessThan(bin2, bin1) && !LessThan(bin1, bin2)) return true;
+			if (LessThan(bin2, bin1)) return true;
 			return false;
 		}
 
