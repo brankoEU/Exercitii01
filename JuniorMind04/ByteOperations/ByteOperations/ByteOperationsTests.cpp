@@ -30,11 +30,13 @@ namespace ByteOperations
 		TEST_METHOD(UseNotOperator)
 		{
 			Assert::AreEqual({ 1, 0, 1 }, Not(ToBinary(10)));
+			Assert::AreEqual({ 0 }, Not(ToBinary(3)));
 		}
 
 		TEST_METHOD(TestFunctionRemoveZeros)
 		{
 			Assert::AreEqual({ 1, 1 }, RemoveBeginingZero({ 0, 0, 1, 1 }));
+			Assert::AreEqual({ 0 }, RemoveBeginingZero({ 0, 0, 0, 0 }));
 		}
 
 		TEST_METHOD(UseAndOperator)
@@ -127,7 +129,7 @@ namespace ByteOperations
 
 		vector<char> RemoveBeginingZero(vector<char> bin)
 		{
-			while (bin[0] == 0)
+			while (bin[0] == 0 && bin.size() > 1)
 			{
 				bin.erase(bin.begin());
 			}
@@ -206,6 +208,7 @@ namespace ByteOperations
 
 		vector<char> Difference(vector<char> bin1, vector<char> bin2)
 		{
+			vector<char> bin;
 			return {};
 		}
 
