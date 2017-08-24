@@ -168,23 +168,19 @@ namespace ByteOperations
 
 		bool GraterThan(vector<char> bin1, vector<char> bin2)
 		{
-			for (int i = max(bin1.size(), bin2.size()); i >= 0; i--)
-			{
-				if ((GetAt(bin1, i) != GetAt(bin2, i)) && !LessThan(bin1, bin2)) return true;
-			}
+			if (LessThan(bin2, bin1) && !LessThan(bin1, bin2)) return true;
 			return false;
 		}
 
 		bool Equal(vector<char> bin1, vector<char> bin2)
 		{
-			if (!GraterThan(bin1, bin2) && !LessThan(bin1, bin2)) return true;
+			if (!LessThan(bin1, bin2) && !LessThan(bin2, bin1)) return true;
 			return false;
 		}
 
 		bool NotEqual(vector<char> bin1, vector<char> bin2)
 		{
-			if (!Equal(bin1, bin2)) return true;
-			return false;
+			return !Equal(bin1, bin2);
 		}
 
 	};
