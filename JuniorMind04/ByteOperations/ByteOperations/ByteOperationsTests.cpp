@@ -174,8 +174,7 @@ namespace ByteOperations
 
 		bool Equal(vector<char> bin1, vector<char> bin2)
 		{
-			if (!LessThan(bin1, bin2) && !LessThan(bin2, bin1)) return true;
-			return false;
+			return !LessThan(bin1, bin2) && !LessThan(bin2, bin1);
 		}
 
 		bool NotEqual(vector<char> bin1, vector<char> bin2)
