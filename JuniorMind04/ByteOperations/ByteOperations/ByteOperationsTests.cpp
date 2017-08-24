@@ -71,8 +71,14 @@ namespace ByteOperations
 
 		TEST_METHOD(LessThanOperator)
 		{
-			Assert::AreEqual(false, LessThan(ToBinary(9), ToBinary(8)));
+			Assert::AreEqual(false, LessThan(ToBinary(8), ToBinary(8)));
 			Assert::AreEqual(true, LessThan(ToBinary(7), ToBinary(8)));
+		}
+
+		TEST_METHOD(GraterThanOperator)
+		{
+			Assert::AreEqual(true, GraterThan(ToBinary(9), ToBinary(8)));
+			Assert::AreEqual(false, GraterThan(ToBinary(8), ToBinary(8)));
 		}
 		
 		vector<char> ToBinary(int number)
@@ -143,6 +149,15 @@ namespace ByteOperations
 			for (int i = max(bin1.size(), bin2.size()); i >= 0; i--)
 			{
 				if (GetAt(bin1, i) < GetAt(bin2, i)) return true;
+			}
+			return false;
+		}
+
+		bool GraterThan(vector<char> bin1, vector<char> bin2)
+		{
+			for (int i = max(bin1.size(), bin2.size()); i >= 0; i--)
+			{
+				if ((GetAt(bin1, i) != GetAt(bin2, i)) && !LessThan(bin1, bin2)) return true;
 			}
 			return false;
 		}
