@@ -123,11 +123,16 @@ namespace ByteOperations
 		
 		vector<char> ToBinary(int number)
 		{
+			return ToAnyBase(number, 2);
+		}
+		
+		vector<char> ToAnyBase(int number, int base)
+		{
 			vector<char> bin;
 			while (number > 0)
 			{
-				bin.insert(bin.begin(), number % 2);
-				number /= 2;
+				bin.insert(bin.begin(), number % base);
+				number /= base;
 			}
 			return bin;
 		}
