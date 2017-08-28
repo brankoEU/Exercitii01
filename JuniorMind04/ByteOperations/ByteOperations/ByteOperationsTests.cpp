@@ -115,6 +115,11 @@ namespace ByteOperations
 			Assert::AreEqual(ToBinary(21), Multiply(ToBinary(7), ToBinary(3)));
 			Assert::AreEqual(ToBinary(32), Multiply(ToBinary(4), ToBinary(8)));
 		}
+		TEST_METHOD(TestDivisionFunction)
+		{
+			Assert::AreEqual(ToBinary(5), Division(ToBinary(25), ToBinary(5)));
+			Assert::AreEqual(ToBinary(3), Division(ToBinary(15), ToBinary(5)));
+		}
 		
 		vector<char> ToBinary(int number)
 		{
@@ -235,6 +240,17 @@ namespace ByteOperations
 			    else bin1.push_back(0);
 			}
 			return bin;
+		}
+
+		vector<char> Division(vector<char> bin1, vector<char> bin2)
+		{
+			int div = 0;
+			while (NotEqual(bin1, {0}))
+			{
+				bin1 = Difference(bin1, bin2);
+				div++;
+			}
+			return ToBinary(div);
 		}
 
 	};
