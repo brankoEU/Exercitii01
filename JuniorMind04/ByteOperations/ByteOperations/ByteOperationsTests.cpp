@@ -104,9 +104,9 @@ namespace ByteOperations
 
 		TEST_METHOD(TestDifferenceFunction)
 		{
-			Assert::AreEqual(ToBinary(2), Difference(ToBinary(3), ToBinary(5)));
+			Assert::AreEqual({ 0 }, Difference(ToBinary(5), ToBinary(5)));
 			Assert::AreEqual(ToBinary(3), Difference(ToBinary(5), ToBinary(2)));
-			Assert::AreEqual(ToBinary(3), Difference(ToBinary(8), ToBinary(5)));
+			Assert::AreEqual(ToBinary(12), Difference(ToBinary(16), ToBinary(4)));
 		}
 
 		TEST_METHOD(TestMultiplyFunction)
@@ -119,6 +119,7 @@ namespace ByteOperations
 		{
 			Assert::AreEqual(ToBinary(5), Division(ToBinary(25), ToBinary(5)));
 			Assert::AreEqual(ToBinary(3), Division(ToBinary(15), ToBinary(5)));
+			Assert::AreEqual(ToBinary(4), Division(ToBinary(16), ToBinary(4)));
 		}
 		
 		vector<char> ToBinary(int number)
@@ -227,6 +228,10 @@ namespace ByteOperations
 
 		vector<char> Difference(vector<char> bin1, vector<char> bin2)
 		{
+			if ((bin1.size() - bin2.size()) != 0)
+			{
+				for (int i = 0; i <= (bin1.size() - bin2.size()); i++) bin2.insert(bin2.begin(), 0);
+			}
 			vector<char> bin = Sum(bin1, Sum(Not(bin2), ToBinary(1)));
 			if (bin.size() > min(bin1.size(), bin2.size())) bin.erase(bin.begin());
 			return RemoveBeginingZero(bin);
