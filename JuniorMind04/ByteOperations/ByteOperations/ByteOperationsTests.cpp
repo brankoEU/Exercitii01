@@ -230,7 +230,8 @@ namespace ByteOperations
 		{
 			if ((bin1.size() - bin2.size()) != 0)
 			{
-				for (int i = 0; i <= (bin1.size() - bin2.size()); i++) bin2.insert(bin2.begin(), 0);
+				for (int i = 0; i <= (bin1.size() - bin2.size()); i++) 
+					bin2.insert(bin2.begin(), 0);
 			}
 			vector<char> bin = Sum(bin1, Sum(Not(bin2), ToBinary(1)));
 			if (bin.size() > min(bin1.size(), bin2.size())) bin.erase(bin.begin());
@@ -240,15 +241,11 @@ namespace ByteOperations
 		vector<char> Multiply(vector<char> bin1, vector<char> bin2)
 		{
 			vector<char> bin = { 0 };
-			for (int i = 0; i < bin2.size(); i++)
+			do
 			{
-				if (GetAt(bin2, i) == 1)
-				{
-					bin = Sum(bin, bin1);
-					bin1.push_back(0);
-				}
-			    else bin1.push_back(0);
-			}
+				bin = Sum(bin, bin1);
+				bin2 = Difference(bin2, ToBinary(1));
+			} while (NotEqual(bin2, { 0 }));
 			return bin;
 		}
 
