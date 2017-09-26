@@ -121,6 +121,31 @@ namespace ByteOperations
 			Assert::AreEqual(ToBinary(3), Division(ToBinary(15), ToBinary(5)));
 			Assert::AreEqual(ToBinary(4), Division(ToBinary(16), ToBinary(4)));
 		}
+
+		TEST_METHOD(LessThanAnyBase)
+		{
+			Assert::AreEqual(false, LessThan(ToAnyBase(8, 5), ToAnyBase(8, 5)));
+			Assert::AreEqual(true, LessThan(ToAnyBase(7, 5), ToAnyBase(8, 5)));
+		}
+
+		TEST_METHOD(GraterThanAnyBase)
+		{
+			Assert::AreEqual(true, GraterThan(ToAnyBase(9, 8), ToAnyBase(8, 8)));
+			Assert::AreEqual(false, GraterThan(ToAnyBase(8, 7), ToAnyBase(8, 7)));
+		}
+
+		TEST_METHOD(EqualAnyBase)
+		{
+			Assert::AreEqual(false, Equal(ToAnyBase(21, 3), ToAnyBase(17, 3)));
+			Assert::AreEqual(true, Equal(ToAnyBase(22, 11), ToAnyBase(22, 11)));
+			Assert::AreEqual(false, Equal(ToAnyBase(31, 21), ToAnyBase(33, 21)));
+		}
+
+		TEST_METHOD(NotEqualAnyBase)
+		{
+			Assert::AreEqual(true, NotEqual(ToAnyBase(25, 17), ToAnyBase(31, 17)));
+			Assert::AreEqual(false, NotEqual(ToAnyBase(17, 15), ToAnyBase(17, 15)));
+		}
 		
 		vector<char> ToBinary(int number)
 		{
