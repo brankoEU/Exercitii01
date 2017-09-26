@@ -152,6 +152,19 @@ namespace ByteOperations
 			Assert::AreEqual(ToAnyBase(9, 3), Sum(ToAnyBase(5, 3), ToAnyBase(4, 3), 3));
 			Assert::AreEqual(ToAnyBase(8, 3), Sum(ToAnyBase(3, 3), ToAnyBase(5, 3), 3));
 		}
+
+		TEST_METHOD(AnyBaseMultiply)
+		{
+			Assert::AreEqual(ToAnyBase(15, 3), Multiply(ToAnyBase(3, 3), ToAnyBase(5, 3), 3));
+			Assert::AreEqual(ToAnyBase(21, 3), Multiply(ToAnyBase(7, 3), ToAnyBase(3, 3), 3));
+			Assert::AreEqual(ToAnyBase(32, 4), Multiply(ToAnyBase(4, 4), ToAnyBase(8, 4), 4));
+		}
+		TEST_METHOD(AnyBaseDivision)
+		{
+			Assert::AreEqual(ToAnyBase(5, 4), Division(ToAnyBase(25, 4), ToAnyBase(5, 4), 4));
+			Assert::AreEqual(ToAnyBase(3, 3), Division(ToAnyBase(15, 3), ToAnyBase(5, 3), 3));
+			Assert::AreEqual(ToAnyBase(4, 4), Division(ToAnyBase(16, 4), ToAnyBase(4, 4), 4));
+		}
 		
 		vector<char> ToBinary(int number)
 		{
@@ -275,7 +288,7 @@ namespace ByteOperations
 			do
 			{
 				bin = Sum(bin, bin1, base);
-				bin2 = Difference(bin2, ToBinary(1), base);
+				bin2 = Difference(bin2, ToAnyBase(1, base), base);
 			} while (NotEqual(bin2, { 0 }));
 			return bin;
 		}
@@ -288,7 +301,7 @@ namespace ByteOperations
 				bin1 = Difference(bin1, bin2, base);
 				div++;
 			}
-			return ToBinary(div);
+			return ToAnyBase(div, base);
 		}
 
 	};
