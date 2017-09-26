@@ -149,8 +149,15 @@ namespace ByteOperations
 
 		TEST_METHOD(AnyBaseSum)
 		{
-			Assert::AreEqual(ToAnyBase(9, 3), Sum(ToAnyBase(5, 3), ToAnyBase(4, 3), 3));
+			Assert::AreEqual(ToAnyBase(9, 6), Sum(ToAnyBase(5, 6), ToAnyBase(4, 6), 6));
 			Assert::AreEqual(ToAnyBase(8, 3), Sum(ToAnyBase(3, 3), ToAnyBase(5, 3), 3));
+		}
+
+		TEST_METHOD(AnyBaseDifference)
+		{
+			Assert::AreEqual({ 0 }, Difference(ToAnyBase(5, 4), ToAnyBase(5, 4), 4));
+			Assert::AreEqual(ToAnyBase(3, 6), Difference(ToAnyBase(5, 6), ToAnyBase(2, 6), 6));
+			Assert::AreEqual(ToAnyBase(12, 5), Difference(ToAnyBase(16, 5), ToAnyBase(4, 5), 5));
 		}
 
 		TEST_METHOD(AnyBaseMultiply)
@@ -164,6 +171,11 @@ namespace ByteOperations
 			Assert::AreEqual(ToAnyBase(5, 4), Division(ToAnyBase(25, 4), ToAnyBase(5, 4), 4));
 			Assert::AreEqual(ToAnyBase(3, 3), Division(ToAnyBase(15, 3), ToAnyBase(5, 3), 3));
 			Assert::AreEqual(ToAnyBase(4, 4), Division(ToAnyBase(16, 4), ToAnyBase(4, 4), 4));
+		}
+
+		TEST_METHOD(TestComplements)
+		{
+			Assert::AreEqual({ 6, 7, 8 }, ComplemetsByBase({ 3, 2, 1 }, 10));
 		}
 		
 		vector<char> ToBinary(int number)
@@ -277,7 +289,7 @@ namespace ByteOperations
 				for (int i = 0; i <= (bin1.size() - bin2.size()); i++) 
 					bin2.insert(bin2.begin(), 0);
 			}
-			vector<char> bin = Sum(bin1, Sum(Not(bin2), ToBinary(1), base), base);
+			vector<char> bin = Sum(bin1, Sum(ComplemetsByBase(bin2, base), ToAnyBase(1, base), base), base);
 			if (bin.size() > min(bin1.size(), bin2.size())) bin.erase(bin.begin());
 			return RemoveBeginingZero(bin);
 		}
@@ -302,6 +314,15 @@ namespace ByteOperations
 				div++;
 			}
 			return ToAnyBase(div, base);
+		}
+
+		vector<char> ComplemetsByBase(vector<char> bin, int base)
+		{
+			for (int i = 0; i < bin.size(); i++)
+			{
+				bin[i] = base - 1 - bin[i];
+			}
+			return RemoveBeginingZero(bin);
 		}
 
 	};
