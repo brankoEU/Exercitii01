@@ -11,10 +11,11 @@ namespace ClockAlarm
 		
 		TEST_METHOD(TestMethod1)
 		{
-			Assert::AreEqual(true, AlarmRinger(6, Monday, { Monday | 6 }));
+			Alarm alarm(WeekDays::Monday, 6);
+			Assert::AreEqual(true, AlarmRinger(6, WeekDays::Monday, alarm));
 		}
 		
-		enum WeekDays
+		enum class WeekDays
 		{
 			Monday,
 			Tuesday,
@@ -38,7 +39,7 @@ namespace ClockAlarm
 
 		bool AlarmRinger(int hour, WeekDays day, Alarm alarm)
 		{
-			return false;
+			return day == alarm.day && hour == alarm.hour;
 		}
 
 	};
