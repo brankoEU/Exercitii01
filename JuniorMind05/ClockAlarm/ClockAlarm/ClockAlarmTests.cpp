@@ -9,10 +9,21 @@ namespace ClockAlarm
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(TestMonday)
 		{
-			Alarm alarm(WeekDays::Monday, 6);
-			Assert::IsTrue(AlarmRinger(6, WeekDays::Monday, alarm));
+			Assert::IsTrue(AlarmRinger(6, WeekDays::Monday));
+		}
+
+		TEST_METHOD(TestWeek)
+		{
+			Assert::IsTrue(AlarmRinger(6, WeekDays::Friday));
+			Assert::IsFalse(AlarmRinger(8, WeekDays::Wednesday));
+		}
+
+		TEST_METHOD(TestWeekEnd)
+		{
+			Assert::IsTrue(AlarmRinger(8, WeekDays::Sunday));
+			Assert::IsFalse(AlarmRinger(6, WeekDays::Sunday));
 		}
 		
 		enum class WeekDays
@@ -37,8 +48,20 @@ namespace ClockAlarm
 			}
 		};
 
-		bool AlarmRinger(int hour, WeekDays day, Alarm alarm)
+		int AlarmSetup(WeekDays day)
 		{
+			bool weekEnd = false;
+			switch (day)
+			{
+			case WeekDays::Saturday: weekEnd = true;
+			case WeekDays::Sunday: weekEnd = true;
+			}
+			return weekEnd ? 8 : 6;
+		}
+
+		bool AlarmRinger(int hour, WeekDays day)
+		{
+			Alarm alarm(day, AlarmSetup(day));
 			return day == alarm.day && hour == alarm.hour;
 		}
 
