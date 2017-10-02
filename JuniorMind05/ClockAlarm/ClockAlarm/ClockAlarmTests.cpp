@@ -42,12 +42,14 @@ namespace ClockAlarm
 		{
 			Alarm AlarmWeek(WeekDays::Monday | WeekDays::Tuesday | WeekDays::Wednesday | WeekDays::Thursday | WeekDays::Friday, 6);
 			Assert::IsTrue(AlarmRinger(6, WeekDays::Monday, AlarmWeek));
+			Assert::IsFalse(AlarmRinger(8, WeekDays::Monday, AlarmWeek));
 		}
 
 		TEST_METHOD(TestWeekEndDays)
 		{
 			Alarm AlarmWeekEnd(WeekDays::Saturday | WeekDays::Sunday, 8);
 			Assert::IsTrue(AlarmRinger(8, WeekDays::Sunday, AlarmWeekEnd));
+			Assert::IsFalse(AlarmRinger(8, WeekDays::Monday, AlarmWeekEnd));
 		}
 		
 		struct Alarm
