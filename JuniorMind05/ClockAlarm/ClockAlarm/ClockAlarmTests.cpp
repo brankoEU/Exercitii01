@@ -25,31 +25,29 @@ namespace ClockAlarm
 			);
 	}
 
+	WeekDays operator &(WeekDays lhs, WeekDays rhs)
+	{
+		return static_cast<WeekDays> (
+			static_cast<underlying_type<WeekDays>::type>(lhs) &
+			static_cast<underlying_type<WeekDays>::type>(rhs)
+			);
+	}
+
+
 	TEST_CLASS(ClockAlarmTests)
 	{
 	public:
-		
-		TEST_METHOD(TestMonday)
+
+		TEST_METHOD(TestWeekDays)
 		{
-			Assert::IsTrue(AlarmRinger(6, WeekDays::Monday));
+			Alarm AlarmWeek(WeekDays::Monday | WeekDays::Tuesday | WeekDays::Wednesday | WeekDays::Thursday | WeekDays::Friday, 6);
+			Assert::IsTrue(AlarmRinger(6, WeekDays::Monday, AlarmWeek));
 		}
 
-		TEST_METHOD(TestWeek)
+		TEST_METHOD(TestWeekEndDays)
 		{
-			Assert::IsTrue(AlarmRinger(6, WeekDays::Friday));
-			Assert::IsFalse(AlarmRinger(8, WeekDays::Wednesday));
-		}
-
-		TEST_METHOD(TestWeekEnd)
-		{
-			Assert::IsTrue(AlarmRinger(8, WeekDays::Sunday));
-			Assert::IsFalse(AlarmRinger(6, WeekDays::Sunday));
-		}
-
-		TEST_METHOD(TestDaysMWF)
-		{
-			const WeekDays Days = WeekDays::Monday | WeekDays::Wednesday | WeekDays::Friday;
-			Assert::IsTrue(AlarmRinger(6, Days));
+			Alarm AlarmWeekEnd(WeekDays::Saturday | WeekDays::Sunday, 8);
+			Assert::IsTrue(AlarmRinger(8, WeekDays::Sunday, AlarmWeekEnd));
 		}
 		
 		struct Alarm
@@ -63,21 +61,9 @@ namespace ClockAlarm
 			}
 		};
 
-		int AlarmSetup(WeekDays day)
+		bool AlarmRinger(int hour, WeekDays day, Alarm alarm)
 		{
-			bool weekEnd = false;
-			switch (day)
-			{
-			case WeekDays::Saturday: weekEnd = true;
-			case WeekDays::Sunday: weekEnd = true;
-			}
-			return weekEnd ? 8 : 6;
-		}
-
-		bool AlarmRinger(int hour, WeekDays day)
-		{
-			Alarm alarm(day, AlarmSetup(day));
-			return day == alarm.day && hour == alarm.hour;
+			return ((day & alarm.day) == day) && (hour == alarm.hour);
 		}
 	};
 }
