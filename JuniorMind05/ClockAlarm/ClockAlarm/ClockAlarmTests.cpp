@@ -1,10 +1,30 @@
 #include "stdafx.h"
-#include "CppUnitTest.h"
+#include "CppUnitTest.h" 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace std;
 
 namespace ClockAlarm
 {		
+	enum class WeekDays : int
+	{
+		Monday = 0x1,
+		Tuesday = 0x2,
+		Wednesday = 0x4,
+		Thursday = 0x8,
+		Friday = 0x10,
+		Saturday = 0x20,
+		Sunday = 0x40
+	};
+
+	WeekDays operator |(WeekDays lhs, WeekDays rhs)
+	{
+		return static_cast<WeekDays> (
+			static_cast<underlying_type<WeekDays>::type>(lhs) |
+			static_cast<underlying_type<WeekDays>::type>(rhs)
+			);
+	}
+
 	TEST_CLASS(ClockAlarmTests)
 	{
 	public:
@@ -25,17 +45,12 @@ namespace ClockAlarm
 			Assert::IsTrue(AlarmRinger(8, WeekDays::Sunday));
 			Assert::IsFalse(AlarmRinger(6, WeekDays::Sunday));
 		}
-		
-		enum class WeekDays
+
+		TEST_METHOD(TestDaysMWF)
 		{
-			Monday,
-			Tuesday,
-			Wednesday,
-			Thursday,
-			Friday,
-			Saturday,
-			Sunday
-		};
+			const WeekDays Days = WeekDays::Monday | WeekDays::Wednesday | WeekDays::Friday;
+			Assert::IsTrue(AlarmRinger(6, Days));
+		}
 		
 		struct Alarm
 		{
@@ -64,6 +79,5 @@ namespace ClockAlarm
 			Alarm alarm(day, AlarmSetup(day));
 			return day == alarm.day && hour == alarm.hour;
 		}
-
 	};
 }
