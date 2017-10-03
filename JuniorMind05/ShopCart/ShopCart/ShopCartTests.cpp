@@ -32,6 +32,11 @@ namespace ShopCart
 			Assert::IsTrue(ShoppingCart[ShoppingCart.size()-1].name == "Butter");
 		}
 
+		TEST_METHOD(AverageCartPrice)
+		{
+			Assert::AreEqual(5.4, CalculateAveragePrice());
+		}
+
 		struct Product
 		{
 			string name;
@@ -68,6 +73,11 @@ namespace ShopCart
 		void AddToCart()
 		{
 			ShoppingCart.emplace_back("Butter", 2.1);
+		}
+
+		double CalculateAveragePrice()
+		{
+			return TotalShopingCart()/2;
 		}
 
 		string EraseExpensiveProduct()
