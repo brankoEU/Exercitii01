@@ -21,6 +21,17 @@ namespace ShopCart
 			Assert::AreEqual("Water", FindCheapestProduct().c_str());
 		}
 
+		TEST_METHOD(ExpensiveProduct)
+		{
+			Assert::AreEqual("Orange", EraseExpensiveProduct().c_str());
+		}
+
+		TEST_METHOD(AddProduct)
+		{
+			AddToCart();
+			Assert::IsTrue(ShoppingCart[ShoppingCart.size()-1].name == "Butter");
+		}
+
 		struct Product
 		{
 			string name;
@@ -53,5 +64,22 @@ namespace ShopCart
 			}
 			return cheapest;
 		}
+
+		void AddToCart()
+		{
+			ShoppingCart.emplace_back("Butter", 2.1);
+		}
+
+		string EraseExpensiveProduct()
+		{
+			string expensive = ShoppingCart[0].name;
+			for (int i = 1; i < ShoppingCart.size(); i++)
+			{
+				if (ShoppingCart[i].price > ShoppingCart[i - 1].price) expensive = ShoppingCart[i].name;
+			}
+			return expensive;
+		}
+
+
 	};
 }
