@@ -26,13 +26,21 @@ namespace ShopCart
 				this->price = price;
 			}
 		};
+
 		vector<Product> ShoppingCart;
-		ShoppingCart() = { ("Water", 2.5), ("Bread", 3.1), ("Orange", 5.2) };
+
+		void PopulateShop()
+		{
+			ShoppingCart.emplace_back("Water", 2.5);
+			ShoppingCart.emplace_back("Bread", 3.1);
+			ShoppingCart.emplace_back("Orange", 5.2);
+		}
 
 		double TotalShopingCart()
 		{
+			PopulateShop();
 			double totalPriceSC = 0;
-			for (int i = 0; i < sizeof(ShoppingCart[0]); i++)
+			for (int i = 0; i < ShoppingCart.size(); i++)
 			{
 				totalPriceSC += ShoppingCart[i].price;
 			}
