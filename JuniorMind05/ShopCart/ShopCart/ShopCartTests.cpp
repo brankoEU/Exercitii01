@@ -26,13 +26,8 @@ namespace ShopCart
 				this->price = price;
 			}
 		};
-
-		Product ShoppingCart[] =
-		{
-			Product(name = "Water", price = 2.5),
-			Product(name = "Bred", price = 3.1),
-			Product(name = "Orange", price = 5.2)
-		};
+		vector<Product> ShoppingCart;
+		ShoppingCart() = { ("Water", 2.5), ("Bread", 3.1), ("Orange", 5.2) };
 
 		double TotalShopingCart()
 		{
