@@ -17,9 +17,9 @@ namespace Ciclometru
 			Assert::AreEqual(1.0, CalculateTotalDistance(data_base));
 		}
 
-		TEST_METHOD(dist_per_cicl)
+		TEST_METHOD(TestDistancePerCyclist)
 		{
-			Assert::AreEqual(898.04, DistancePerCyclist(Circumference(26), { 2,2,3,1,3 }));
+			Assert::AreEqual(898.04, DistancePerCyclist(20, { 3,1,3,4,2 }));
 		}
 
 		struct Cyclometer
@@ -40,12 +40,12 @@ namespace Ciclometru
 			return diameter * 3.14;
 		}
 
-		double DistancePerCyclist(double circumference, vector<double> rotations)
+		double DistancePerCyclist(double diameter, vector<double> rotations)
 		{
 			double distance = 0;
 			for (int i = 0; i < rotations.size(); i++)
 			{
-				distance += circumference*rotations[i];
+				distance += Circumference(diameter)*rotations[i];
 			}
 			return distance;
 		}
@@ -53,6 +53,10 @@ namespace Ciclometru
 		double CalculateTotalDistance(vector<Cyclometer> data)
 		{
 			double totalDistance = 0;
+			for (int i = 0; i < data.size(); i++)
+			{
+				totalDistance += DistancePerCyclist(data[i].diameter, data[i].records);
+			}
 			return totalDistance;
 		}
 

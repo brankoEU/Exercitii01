@@ -13,7 +13,7 @@ namespace ShopCart
 		
 		TEST_METHOD(TotalPriceSHOPPING)
 		{
-			Assert::AreEqual(10.8, TotalShopingCart());
+			Assert::AreEqual(9.8, TotalShopingCart());
 		}
 
 		TEST_METHOD(CheapestProduct)
@@ -23,7 +23,7 @@ namespace ShopCart
 
 		TEST_METHOD(ExpensiveProduct)
 		{
-			Assert::AreEqual("Orange", EraseExpensiveProduct().c_str());
+			Assert::AreEqual("Bread", EraseExpensiveProduct().c_str());
 		}
 
 		TEST_METHOD(AddProduct)
@@ -34,7 +34,7 @@ namespace ShopCart
 
 		TEST_METHOD(AverageCartPrice)
 		{
-			Assert::AreEqual(5.4, CalculateAveragePrice());
+			Assert::AreEqual(4.9, CalculateAveragePrice());
 		}
 
 		struct Product
@@ -48,7 +48,7 @@ namespace ShopCart
 			}
 		};
 
-		vector<Product> ShoppingCart = { { "Water", 2.5 } ,{ "Bread", 3.1 } ,{ "Orange", 5.2 } };
+		vector<Product> ShoppingCart = { { "Water", 2.5 } ,{ "Bread", 4.1 } ,{ "Orange", 3.2 } };
 
 		double TotalShopingCart()
 		{
@@ -63,9 +63,15 @@ namespace ShopCart
 		string FindCheapestProduct()
 		{
 			string cheapest = ShoppingCart[0].name;
+			double temp = ShoppingCart[0].price;
 			for (int i = 1; i < ShoppingCart.size(); i++)
 			{
-				if (ShoppingCart[i].price < ShoppingCart[i - 1].price) cheapest = ShoppingCart[i].name;
+				if (ShoppingCart[i].price < temp)
+				{
+					cheapest = ShoppingCart[i].name;
+					temp = ShoppingCart[i].price;
+				}
+
 			}
 			return cheapest;
 		}
@@ -84,11 +90,13 @@ namespace ShopCart
 		{
 			int pos = 0;
 			string expensive = ShoppingCart[0].name;
+			double temp = ShoppingCart[0].price;
 			for (int i = 1; i < ShoppingCart.size(); i++)
 			{
-				if (ShoppingCart[i].price > ShoppingCart[i - 1].price)
+				if (ShoppingCart[i].price > temp)
 				{
 					expensive = ShoppingCart[i].name;
+					temp = ShoppingCart[i].price;
 					pos = i;
 				}
 			}
