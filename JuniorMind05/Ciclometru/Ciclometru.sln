@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ciclometru", "Ciclometru\Ciclometru.vcxproj", "{0D090E60-959D-4E3D-B79E-4232ECE0FDDE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D090E60-959D-4E3D-B79E-4232ECE0FDDE}.Debug|x64.ActiveCfg = Debug|x64
+		{0D090E60-959D-4E3D-B79E-4232ECE0FDDE}.Debug|x64.Build.0 = Debug|x64
+		{0D090E60-959D-4E3D-B79E-4232ECE0FDDE}.Debug|x86.ActiveCfg = Debug|Win32
+		{0D090E60-959D-4E3D-B79E-4232ECE0FDDE}.Debug|x86.Build.0 = Debug|Win32
+		{0D090E60-959D-4E3D-B79E-4232ECE0FDDE}.Release|x64.ActiveCfg = Release|x64
+		{0D090E60-959D-4E3D-B79E-4232ECE0FDDE}.Release|x64.Build.0 = Release|x64
+		{0D090E60-959D-4E3D-B79E-4232ECE0FDDE}.Release|x86.ActiveCfg = Release|Win32
+		{0D090E60-959D-4E3D-B79E-4232ECE0FDDE}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {035B7463-A49D-4BC2-AE22-D4E3F379DA6B}
+	EndGlobalSection
+EndGlobal
