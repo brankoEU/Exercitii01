@@ -17,12 +17,6 @@ namespace Ciclometru
 			Assert::AreEqual(2562.24, CalculateTotalDistance(data_base), 0.000000000001);
 		}
 
-		TEST_METHOD(MaximumSpeed)
-		{
-			vector<Cyclometer> data_base = { { "Ionut",26,{ 2,2,3,1,3 } } ,{ "Alex",20,{ 3,1,3,4,2 } } ,{ "Marius",30,{ 1,2,1,4,1 } } };
-			Assert::AreEqual("Marius", FindMaximumSpeed(data_base).c_str());
-		}
-
 		TEST_METHOD(TestDistancePerCyclist)
 		{
 			Assert::AreEqual(898.04, DistancePerCyclist(26, { 2,2,3,1,3 }));
@@ -50,6 +44,12 @@ namespace Ciclometru
 				this->diameter = diameter;
 				this->records = records;
 			}
+		};
+
+		struct Result
+		{
+			string name;
+			int second;
 		};
 
 		double Circumference(double diameter)
@@ -80,11 +80,6 @@ namespace Ciclometru
 				totalDistance += DistancePerCyclist(data[i].diameter, data[i].records);
 			}
 			return totalDistance;
-		}
-
-		string FindMaximumSpeed(vector<Cyclometer> data)
-		{
-			return "";
 		}
 
 		string BestAverageSpeedPerCyclist(vector<Cyclometer> data)
