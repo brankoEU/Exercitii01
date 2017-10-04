@@ -82,11 +82,17 @@ namespace ShopCart
 
 		string EraseExpensiveProduct()
 		{
+			int pos = 0;
 			string expensive = ShoppingCart[0].name;
 			for (int i = 1; i < ShoppingCart.size(); i++)
 			{
-				if (ShoppingCart[i].price > ShoppingCart[i - 1].price) expensive = ShoppingCart[i].name;
+				if (ShoppingCart[i].price > ShoppingCart[i - 1].price)
+				{
+					expensive = ShoppingCart[i].name;
+					pos = i;
+				}
 			}
+			ShoppingCart.erase(ShoppingCart.begin() + pos);
 			return expensive;
 		}
 
