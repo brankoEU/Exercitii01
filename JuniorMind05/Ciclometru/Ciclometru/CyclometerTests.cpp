@@ -14,12 +14,12 @@ namespace Ciclometru
 		TEST_METHOD(TotalDistance)
 		{
 			vector<Cyclometer> data_base = { { "Ionut",26,{ 2,2,3,1,3 } } ,{ "Alex",20,{ 3,1,3,4,2 } } ,{ "Marius",30,{ 1,2,1,4,1 } } };
-			Assert::AreEqual(1.0, CalculateTotalDistance(data_base));
+			Assert::AreEqual(2562.24, CalculateTotalDistance(data_base), 0.000000000001);
 		}
 
 		TEST_METHOD(TestDistancePerCyclist)
 		{
-			Assert::AreEqual(898.04, DistancePerCyclist(20, { 3,1,3,4,2 }));
+			Assert::AreEqual(898.04, DistancePerCyclist(26, { 2,2,3,1,3 }));
 		}
 
 		struct Cyclometer
