@@ -1,0 +1,1 @@
+Doar operatii in diferite baze!!!
