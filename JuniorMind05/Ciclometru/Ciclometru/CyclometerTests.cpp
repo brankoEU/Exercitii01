@@ -73,6 +73,11 @@ namespace Ciclometru
 				return position;
 			}
 
+			double GetAverageSpeed()
+			{
+				return GetTotalDistance() / records.size();
+			}
+
 		};
 
 		struct Result
@@ -102,9 +107,9 @@ namespace Ciclometru
 			string bestAverage;
 			for (int i = 0; i < data.size(); i++)
 			{
-				if (data[i].GetTotalDistance() / data[i].records.size() > speed)
+				if (data[i].GetAverageSpeed() > speed)
 				{
-					speed = data[i].GetTotalDistance()/ data[i].records.size();
+					speed = data[i].GetAverageSpeed();
 					bestAverage = data[i].name;
 				}
 			}
