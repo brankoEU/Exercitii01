@@ -78,6 +78,11 @@ namespace Ciclometru
 				return GetTotalDistance() / records.size();
 			}
 
+			double GetMaxRoatations()
+			{
+				return records[GetMaxRotationPos() - 1];
+			}
+
 		};
 
 		struct Result
@@ -122,16 +127,14 @@ namespace Ciclometru
 		    Result result;
 			for (int i = 0; i < data.size(); i++)
 			{
-				if (bestSpeed < SpeedPerSecond(data[i].diameter, data[i].records[data[i].GetMaxRotationPos() - 1]))
+				if (bestSpeed < SpeedPerSecond(data[i].diameter, data[i].GetMaxRoatations()))
 				{
-					bestSpeed = SpeedPerSecond(data[i].diameter, data[i].records[data[i].GetMaxRotationPos() - 1]);
+					bestSpeed = SpeedPerSecond(data[i].diameter, data[i].GetMaxRoatations());
 					result.name = data[i].name;
 					result.second = data[i].GetMaxRotationPos();
 				}
 			}
-			
 			return result;
 		}
-
 	};
 }
