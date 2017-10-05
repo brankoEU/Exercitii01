@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include <vector>
+#include "cyclometer.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
@@ -30,65 +31,6 @@ namespace Ciclometru
 			Assert::AreEqual("Marius", result.name.c_str());
 			Assert::AreEqual(4, result.second);
 		}
-
-		struct Cyclometer
-		{
-			string name;
-			double diameter;
-			vector<double> records;
-			Cyclometer(string name, double diameter, vector<double> records)
-			{
-				this->name = name;
-				this->diameter = diameter;
-				this->records = records;
-			}
-
-			double Circumference()
-			{
-				return diameter * 3.14;
-			}
-
-			double GetTotalDistance()
-			{
-				double distance = 0;
-				for (int i = 0; i < records.size(); i++)
-				{
-					distance += Circumference()*records[i];
-				}
-				return distance;
-			}
-
-			int GetMaxRotationPos()
-			{
-				double maxRotations = records[0];
-				int position;
-				for (int i = 1; i < records.size(); i++)
-				{
-					if (records[i] > maxRotations)
-					{
-						maxRotations = records[i];
-						position = i + 1;
-					}
-				}
-				return position;
-			}
-
-			double GetAverageSpeed()
-			{
-				return GetTotalDistance() / records.size();
-			}
-
-			double GetMaxRoatations()
-			{
-				return records[GetMaxRotationPos() - 1];
-			}
-
-			double SpeedPerSecond()
-			{
-				return Circumference() * GetMaxRoatations();
-			}
-
-		};
 
 		struct Result
 		{
