@@ -58,6 +58,21 @@ namespace Ciclometru
 				return distance;
 			}
 
+			int GetMaxRotationPos()
+			{
+				double maxRotations = records[0];
+				int position;
+				for (int i = 1; i < records.size(); i++)
+				{
+					if (records[i] > maxRotations)
+					{
+						maxRotations = records[i];
+						position = i + 1;
+					}
+				}
+				return position;
+			}
+
 		};
 
 		struct Result
@@ -96,32 +111,17 @@ namespace Ciclometru
 			return bestAverage;
 		}
 
-		int GetMaxRotationPos(vector<double> rotations)
-		{
-			double maxRotations = rotations[0];
-			int position;
-			for (int i = 1; i < rotations.size(); i++)
-			{
-				if (rotations[i] > maxRotations) 
-				{
-					maxRotations = rotations[i];
-					position = i+1;
-				}
-			}
-			return position;
-		}
-
 		Result CyclistBestSpeed(vector<Cyclometer> data)
 		{
 			double bestSpeed = 0;
 		    Result result;
 			for (int i = 0; i < data.size(); i++)
 			{
-				if (bestSpeed < SpeedPerSecond(data[i].diameter, data[i].records[GetMaxRotationPos(data[i].records) - 1]))
+				if (bestSpeed < SpeedPerSecond(data[i].diameter, data[i].records[data[i].GetMaxRotationPos() - 1]))
 				{
-					bestSpeed = SpeedPerSecond(data[i].diameter, data[i].records[GetMaxRotationPos(data[i].records) - 1]);
+					bestSpeed = SpeedPerSecond(data[i].diameter, data[i].records[data[i].GetMaxRotationPos() - 1]);
 					result.name = data[i].name;
-					result.second = GetMaxRotationPos(data[i].records);
+					result.second = data[i].GetMaxRotationPos();
 				}
 			}
 			
