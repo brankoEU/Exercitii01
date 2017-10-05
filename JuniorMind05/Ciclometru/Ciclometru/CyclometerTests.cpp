@@ -83,6 +83,11 @@ namespace Ciclometru
 				return records[GetMaxRotationPos() - 1];
 			}
 
+			double SpeedPerSecond()
+			{
+				return Circumference() * GetMaxRoatations();
+			}
+
 		};
 
 		struct Result
@@ -90,11 +95,6 @@ namespace Ciclometru
 			string name;
 			int second;
 		};
-
-		double SpeedPerSecond(double diameter, double rotations)
-		{
-			return diameter * 3.14 * rotations;
-		}
 
 		double CalculateTotalDistance(vector<Cyclometer> data)
 		{
@@ -127,9 +127,9 @@ namespace Ciclometru
 		    Result result;
 			for (int i = 0; i < data.size(); i++)
 			{
-				if (bestSpeed < SpeedPerSecond(data[i].diameter, data[i].GetMaxRoatations()))
+				if (bestSpeed < data[i].SpeedPerSecond())
 				{
-					bestSpeed = SpeedPerSecond(data[i].diameter, data[i].GetMaxRoatations());
+					bestSpeed = data[i].SpeedPerSecond();
 					result.name = data[i].name;
 					result.second = data[i].GetMaxRotationPos();
 				}
