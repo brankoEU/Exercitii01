@@ -42,6 +42,22 @@ namespace Ciclometru
 				this->diameter = diameter;
 				this->records = records;
 			}
+
+			double Circumference()
+			{
+				return diameter * 3.14;
+			}
+
+			double GetTotalDistance()
+			{
+				double distance = 0;
+				for (int i = 0; i < records.size(); i++)
+				{
+					distance += Circumference()*records[i];
+				}
+				return distance;
+			}
+
 		};
 
 		struct Result
@@ -50,24 +66,9 @@ namespace Ciclometru
 			int second;
 		};
 
-		double Circumference(double diameter)
-		{
-			return diameter * 3.14;
-		}
-
 		double SpeedPerSecond(double diameter, double rotations)
 		{
-			return Circumference(diameter)*rotations;
-		}
-
-		double DistancePerCyclist(double diameter, vector<double> rotations)
-		{
-			double distance = 0;
-			for (int i = 0; i < rotations.size(); i++)
-			{
-				distance += Circumference(diameter)*rotations[i];
-			}
-			return distance;
+			return diameter * 3.14 * rotations;
 		}
 
 		double CalculateTotalDistance(vector<Cyclometer> data)
@@ -75,7 +76,7 @@ namespace Ciclometru
 			double totalDistance = 0;
 			for (int i = 0; i < data.size(); i++)
 			{
-				totalDistance += DistancePerCyclist(data[i].diameter, data[i].records);
+				totalDistance += data[i].GetTotalDistance();
 			}
 			return totalDistance;
 		}
@@ -86,9 +87,9 @@ namespace Ciclometru
 			string bestAverage;
 			for (int i = 0; i < data.size(); i++)
 			{
-				if ((DistancePerCyclist(data[i].diameter, data[i].records) / data[i].records.size()) > speed)
+				if (data[i].GetTotalDistance() / data[i].records.size() > speed)
 				{
-					speed = DistancePerCyclist(data[i].diameter, data[i].records) / data[i].records.size();
+					speed = data[i].GetTotalDistance()/ data[i].records.size();
 					bestAverage = data[i].name;
 				}
 			}
