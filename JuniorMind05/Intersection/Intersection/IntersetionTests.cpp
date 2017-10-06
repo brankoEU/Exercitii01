@@ -13,12 +13,8 @@ namespace Intersection
 		
 		TEST_METHOD(TestIntersetion)
 		{
-			//Assert::IsTrue(Point(1, 3) == FindIntersection(Point(1, 1), { Directions::UP, Directions::UP }));
-		}
-
-		TEST_METHOD(TestBuild)
-		{
-			Assert::AreEqual(3, FindIntersection(Point(1, 1), { Directions::UP, Directions::UP }));
+			vector<Directions> build = { Directions::UP, Directions::UP ,Directions::RIGHT, Directions::RIGHT };
+			Assert::IsTrue(Point(2, 3) == FindIntersection(Point(1, 1), build));
 		}
 
 		enum class Directions { UP, DOWN, LEFT, RIGHT };
@@ -52,13 +48,15 @@ namespace Intersection
 
 		};
 
-		int FindIntersection(Point start, vector<Directions> directions)
+		Point FindIntersection(Point start, vector<Directions> directions)
 		{
+			vector<Point> buildPoins;
 			for (int i = 0; i < directions.size(); i++)
 			{
+				buildPoins.emplace_back(start);
 				start.Build(directions[i]);
 			}
-			return start.y;
+			return buildPoins[3];
 		}
 
 	};
