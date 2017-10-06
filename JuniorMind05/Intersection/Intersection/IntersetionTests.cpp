@@ -9,9 +9,26 @@ namespace Intersection
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(TestIntersetion)
 		{
-			// TODO: Your test code here
+			Assert::AreEqual({ 1,0 }, FindIntersection());
+		}
+
+		struct Point
+		{
+			int x;
+			int y;
+			Point point(int x, int y)
+			{
+				this->x = x;
+				this->y = y;
+			}
+		};
+
+		Point FindIntersection()
+		{
+			Point point = { 0,0 };
+			return point;
 		}
 
 	};
