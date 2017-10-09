@@ -48,19 +48,18 @@ namespace Intersection
 				case Directions::DOWN: return y--;
 				case Directions::LEFT: return x--;
 				case Directions::RIGHT: return x++;
-
 				}
 			}
 		};
 
-		Point FindIntersection(Point start, vector<Directions> directions)
+		Point FindIntersection(Point current, vector<Directions> directions)
 		{
 			vector<Point> buildPoins;
 			for (int i = 0; i < directions.size(); i++)
 			{
-				buildPoins.emplace_back(start);
-				start.Build(directions[i]);
-				if (CheckIntersection(buildPoins, start)) return start;
+				buildPoins.emplace_back(current);
+				current.Build(directions[i]);
+				if (CheckIntersection(buildPoins, current)) return current;
 			}
 			return Point(0, 0);
 		}
