@@ -14,8 +14,10 @@ namespace Password
 		
 		TEST_METHOD(TestMethod1)
 		{
-			Assert::AreEqual("", GeneratePassword(5).c_str());
+			Assert::AreEqual("", GeneratePassword(4).c_str());
 		}
+
+		
 
 		string GeneratePassword(int passlenght)
 		{
@@ -27,14 +29,16 @@ namespace Password
 			string similar = "iIl10oO";
 			string password = "";
 
-			default_random_engine generator;
+			static random_device rd;
+			static mt19937 generator(rd());
 			uniform_int_distribution<int> asciiChar(33, 126);
 
 			while (password.size() < passlenght)
 			{
 				password += char(asciiChar(generator));
+				
 			}
-			
+
 			return password;
 		}
 
