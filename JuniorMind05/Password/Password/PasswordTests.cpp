@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include <random>
 #include <algorithm>
+#include <string>
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -13,9 +14,18 @@ namespace Password
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(VerifyUpperCase)
 		{
-			Assert::AreEqual("", GeneratePassword({ 7,2,2,1,true,true }).c_str());
+			string password = GeneratePassword({ 7,2,2,1,true,true });
+			PasswordOptions options;
+			Assert::AreEqual(2, VerifyPassword(password, options.restricted.uppercase));
+		}
+
+		TEST_METHOD(VerifySymbols)
+		{
+			string password = GeneratePassword({ 7,2,2,1,true,true });
+			PasswordOptions options;
+			Assert::AreEqual(1, VerifyPassword(password, options.restricted.symbols));
 		}
 		
 		struct PasswordOptions
@@ -76,7 +86,18 @@ namespace Password
 			return false;
 		}
 
-
+		int VerifyPassword(string password, string str)
+		{
+			int count = 0;
+			for each (char c in password)
+			{
+				for (int i = 0; i < str.size(); i++)
+				{
+					if (str[i] == c) { count++; }
+				}
+			}
+			return count;
+		}
 
 	};
 }
