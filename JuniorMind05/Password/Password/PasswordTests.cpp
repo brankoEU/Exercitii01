@@ -18,16 +18,6 @@ namespace Password
 			Assert::AreEqual("", GeneratePassword({ 7,2,2,1,true,true }).c_str());
 		}
 		
-		struct Restrictions
-		{
-			string ambiguous = "{}[]()/\\'\"`~,;:.<>";
-			string symbols = "!@#$%^&*-_+=|?";
-			string numbers = "1234567890";
-			string lowercase = "abcdefghijklmnopqrstuvwxyz";
-			string uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			string similar = "iIl10oO";
-		};
-
 		struct PasswordOptions
 		{
 			int passLenght;
@@ -36,11 +26,20 @@ namespace Password
 			int symbols;
 			bool excludeAmbiguius;
 			bool excludeSimilar;
-			Restrictions restricted;
 
-			int GetLowerCaseLenght(PasswordOptions options)
+			struct Restrictions
 			{
-				return options.passLenght - options.numbers - options.symbols - options.uppercase;
+				string ambiguous = "{}[]()/\\'\"`~,;:.<>";
+				string symbols = "!@#$%^&*-_+=|?";
+				string numbers = "1234567890";
+				string lowercase = "abcdefghijklmnopqrstuvwxyz";
+				string uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+				string similar = "iIl10oO";
+			}restricted;
+
+			int GetLowerCaseLenght()
+			{
+				return passLenght - numbers - symbols - uppercase;
 			}
 
 		};
@@ -52,17 +51,17 @@ namespace Password
 
 			static random_device rd;
 			static mt19937 generator(rd());
-			uniform_int_distribution<int> asciiChar(33, 126);
+			uniform_int_distribution<int> rndNo(33, 126);
 
 			while (password.size() < options.passLenght)
 			{
-				char nextChar = char(asciiChar(generator));
+				char nextChar = char(rndNo(generator));
 				if (CheckChar(options.restricted.ambiguous, nextChar) && !options.excludeAmbiguius) { password += nextChar; }
 				if (CheckChar(options.restricted.similar, nextChar) && !options.excludeSimilar) { password += nextChar; }
 				if (CheckChar(options.restricted.symbols, nextChar) && countSymbols < options.symbols) { countSymbols++; password += nextChar; }
 				if (CheckChar(options.restricted.uppercase, nextChar) && countUpper < options.uppercase) { countUpper++; password += nextChar; }
 				if (CheckChar(options.restricted.numbers, nextChar) && countNumbers < options.numbers) { countNumbers++; password += nextChar; }
-				if (CheckChar(options.restricted.lowercase, nextChar) && countLower < (options.GetLowerCaseLenght(options))) { countLower++; password += nextChar; }
+				if (CheckChar(options.restricted.lowercase, nextChar) && countLower < options.GetLowerCaseLenght()) { countLower++; password += nextChar; }
 			}
 
 			return password;
@@ -76,6 +75,8 @@ namespace Password
 			}
 			return false;
 		}
+
+
 
 	};
 }
