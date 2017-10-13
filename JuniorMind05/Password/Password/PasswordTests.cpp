@@ -9,41 +9,60 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
 
 namespace Password
-{		
+{	
+	class Generator {
+		std::uniform_int_distribution<int> dis;
+		std::mt19937 gen;
+	public:
+		Generator(int lower = 33, int upper = 126)
+			: gen(std::random_device()()), dis(lower, upper) {}
+
+		int operator()() {
+			return dis(gen);
+		}
+	};
+
 	TEST_CLASS(PasswordTest)
 	{
 	public:
 		
-		TEST_METHOD(VerifyUpperCase)
+		TEST_METHOD(VerifyGetUpperCases)
 		{
-			string password = GeneratePassword({ 7,2,2,1,true,true });
-			PasswordOptions options;
-			Assert::AreEqual(2, VerifyPassword(password, options.restricted.uppercase));
+			PasswordOptions options = { 7,2,2,1,true,true };
+			string password = options.GetUpperCases();
+			Assert::AreEqual(2, VerifyPassword(password, options.strSets.uppercase));
 		}
 
-		TEST_METHOD(VerifySymbols)
+		TEST_METHOD(VerifyGetNumbers)
 		{
-			string password = GeneratePassword({ 7,2,2,1,true,true });
-			PasswordOptions options;
-			Assert::AreEqual(1, VerifyPassword(password, options.restricted.symbols));
+			PasswordOptions options = { 7,2,2,1,true,true };
+			string password = options.GetNumbers();
+			Assert::AreEqual(2, VerifyPassword(password, options.strSets.numbers));
+		}
+
+		TEST_METHOD(VerifyGetSymbols)
+		{
+			PasswordOptions options = { 7,2,2,1,true,true };
+			string password = options.GetSymbols();
+			Assert::AreEqual(1, VerifyPassword(password, options.strSets.symbols));
 		}
 
 		TEST_METHOD(VerifyAmbiguous)
 		{
-			string password = GeneratePassword({ 7,2,2,1,true,true });
-			PasswordOptions options;
-			Assert::AreEqual(true, VerifyAmbiguousAndSimilars(password, options.restricted.ambiguous));
+			PasswordOptions options = { 7,2,2,1,true,true };
+			string password = options.GeneratePassword();
+			Assert::AreEqual(true, VerifyAmbiguousAndSimilars(password, options.strSets.ambiguous));
 		}
 
 		TEST_METHOD(VerifyPassword)
 		{
-			string password = GeneratePassword({ 20,5,7,3,true,true });
-			PasswordOptions options;
-			Assert::AreEqual(5, VerifyPassword(password, options.restricted.uppercase));
-			Assert::AreEqual(7, VerifyPassword(password, options.restricted.numbers));
-			Assert::AreEqual(3, VerifyPassword(password, options.restricted.symbols));
-			Assert::AreEqual(true, VerifyAmbiguousAndSimilars(password, options.restricted.ambiguous));
-			Assert::AreEqual(true, VerifyAmbiguousAndSimilars(password, options.restricted.similar));
+			PasswordOptions options = { 20,5,7,3,true,true };
+			string password = options.GeneratePassword();
+			Assert::AreEqual(5, VerifyPassword(password, options.strSets.uppercase));
+			Assert::AreEqual(7, VerifyPassword(password, options.strSets.numbers));
+			Assert::AreEqual(3, VerifyPassword(password, options.strSets.symbols));
+			Assert::AreEqual(true, VerifyAmbiguousAndSimilars(password, options.strSets.ambiguous));
+			Assert::AreEqual(true, VerifyAmbiguousAndSimilars(password, options.strSets.similar));
 		}
 		
 		struct PasswordOptions
@@ -55,67 +74,106 @@ namespace Password
 			bool excludeAmbiguius;
 			bool excludeSimilar;
 
-			struct Restrictions
+			struct StringSets
 			{
-				string ambiguous = "{}[]()/\'`~,;:.<>\"";
+				string ambiguous = "{}[]()/\\'`~,;:.<>\"";
 				string symbols = "!@#$%^&*-_+=|?";
 				string numbers = "1234567890";
 				string lowercase = "abcdefghijklmnopqrstuvwxyz";
 				string uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 				string similar = "iIl10oO";
-			}restricted;
+			}strSets;
 
-			int GetLowerCaseLenght()
+			string GetAllowed()
 			{
-				return passLenght - numbers - symbols - uppercase;
+				string allowed = strSets.lowercase;
+				if (!excludeAmbiguius) allowed += strSets.ambiguous;
+				if (!excludeSimilar) allowed += strSets.similar;
+				return allowed;
 			}
 
 			string GetRestricted()
 			{
-				string restrict = "";
-				if (excludeAmbiguius) restrict += restricted.ambiguous;
-				if (excludeSimilar) restrict += restricted.similar;
-				return restrict;
+				string restricted = "";
+				if (excludeAmbiguius) restricted += strSets.ambiguous;
+				if (excludeSimilar) restricted += strSets.similar;
+				return restricted;
+			}
+
+			bool CheckChar(string str, char toCheck)
+			{
+				for each(char c in str)
+				{
+					if (toCheck == c) return true;
+				}
+				return false;
+			}
+
+			string GetUpperCases()
+			{
+				Generator rndNo;
+				string str = "";
+				int i = 0;
+				while (i < uppercase)
+				{
+					char nextChar = char(rndNo());
+					if (CheckChar(strSets.uppercase, nextChar) && !CheckChar(GetRestricted(), nextChar))
+					{
+						str += nextChar;
+						i++;
+					}
+				}
+				return str;
+			}
+
+			string GetNumbers()
+			{
+				Generator rndNo;
+				string str = "";
+				int i = 0;
+				while (i < numbers)
+				{
+					char nextChar = char(rndNo());
+					if (CheckChar(strSets.numbers, nextChar) && !CheckChar(GetRestricted(), nextChar))
+					{
+						str += nextChar;
+						i++;
+					}
+				}
+				return str;
+			}
+
+			string GetSymbols()
+			{
+				Generator rndNo;
+				string str = "";
+				int i = 0;
+				while (i < symbols)
+				{
+					char nextChar = char(rndNo());
+					if (CheckChar(strSets.symbols, nextChar) && !CheckChar(GetRestricted(), nextChar))
+					{
+						str += nextChar;
+						i++;
+					}
+				}
+				return str;
+			}
+
+			string GeneratePassword()
+			{
+				Generator rndNo;
+				string password = GetUpperCases() + GetNumbers() + GetSymbols();
+
+				while (password.size() < passLenght)
+				{
+					char nextChar = char(rndNo());
+					if (CheckChar(GetAllowed(), nextChar) && !CheckChar(GetRestricted(), nextChar)) { password += nextChar; }
+				}
+				return password;
 			}
 
 		};
-
-		string GeneratePassword(PasswordOptions options)
-		{
-			string password = "";
-			string restricted = options.GetRestricted();
-			int countUpper = options.uppercase, countSymbols = options.symbols, countNumbers = options.numbers, countLower = options.GetLowerCaseLenght();
-
-			static random_device rd;
-			static mt19937 generator(rd());
-			uniform_int_distribution<int> rndNo(33, 126);
-
-			while (password.size() < options.passLenght)
-			{
-				char nextChar = char(rndNo(generator));
-				if (CheckChar(restricted, nextChar)) { continue; }
-				else
-				{
-					if (CheckChar(options.restricted.symbols, nextChar) && countSymbols > 0) { countSymbols--; password += nextChar; }
-					if (CheckChar(options.restricted.uppercase, nextChar) && countUpper > 0) { countUpper--; password += nextChar; }
-					if (CheckChar(options.restricted.numbers, nextChar) && countNumbers > 0) { countNumbers--; password += nextChar; }
-					if (CheckChar(options.restricted.lowercase, nextChar) && countLower > 0) { countLower--; password += nextChar; }
-				}
-				
-			}
-			return password;
-		}
-
-		
-
-		bool CheckChar(string str, char toCheck)
-		{
-			for (int i = 0; i < str.size(); i++)
-			{
-				if (toCheck == str[i]) return true;
-			}
-			return false;
-		}
 
 		int VerifyPassword(string password, string str)
 		{
