@@ -98,28 +98,84 @@ namespace ByteOperations
 
 		TEST_METHOD(TestSumFunction)
 		{
-			Assert::AreEqual(ToBinary(9), Sum(ToBinary(5), ToBinary(4)));
-			Assert::AreEqual(ToBinary(8), Sum(ToBinary(3), ToBinary(5)));
+			Assert::AreEqual(ToBinary(9), Sum(ToBinary(5), ToBinary(4), 2));
+			Assert::AreEqual(ToBinary(8), Sum(ToBinary(3), ToBinary(5), 2));
 		}
 
 		TEST_METHOD(TestDifferenceFunction)
 		{
-			Assert::AreEqual({ 0 }, Difference(ToBinary(5), ToBinary(5)));
-			Assert::AreEqual(ToBinary(3), Difference(ToBinary(5), ToBinary(2)));
-			Assert::AreEqual(ToBinary(12), Difference(ToBinary(16), ToBinary(4)));
+			Assert::AreEqual({ 0 }, Difference(ToBinary(5), ToBinary(5), 2));
+			Assert::AreEqual(ToBinary(3), Difference(ToBinary(5), ToBinary(2), 2));
+			Assert::AreEqual(ToBinary(12), Difference(ToBinary(16), ToBinary(4), 2));
 		}
 
 		TEST_METHOD(TestMultiplyFunction)
 		{
-			Assert::AreEqual(ToBinary(15), Multiply(ToBinary(3), ToBinary(5)));
-			Assert::AreEqual(ToBinary(21), Multiply(ToBinary(7), ToBinary(3)));
-			Assert::AreEqual(ToBinary(32), Multiply(ToBinary(4), ToBinary(8)));
+			Assert::AreEqual(ToBinary(15), Multiply(ToBinary(3), ToBinary(5), 2));
+			Assert::AreEqual(ToBinary(21), Multiply(ToBinary(7), ToBinary(3), 2));
+			Assert::AreEqual(ToBinary(32), Multiply(ToBinary(4), ToBinary(8), 2));
 		}
 		TEST_METHOD(TestDivisionFunction)
 		{
-			Assert::AreEqual(ToBinary(5), Division(ToBinary(25), ToBinary(5)));
-			Assert::AreEqual(ToBinary(3), Division(ToBinary(15), ToBinary(5)));
-			Assert::AreEqual(ToBinary(4), Division(ToBinary(16), ToBinary(4)));
+			Assert::AreEqual(ToBinary(5), Division(ToBinary(25), ToBinary(5), 2));
+			Assert::AreEqual(ToBinary(3), Division(ToBinary(15), ToBinary(5), 2));
+			Assert::AreEqual(ToBinary(4), Division(ToBinary(16), ToBinary(4), 2));
+		}
+
+		TEST_METHOD(LessThanAnyBase)
+		{
+			Assert::AreEqual(false, LessThan(ToAnyBase(8, 5), ToAnyBase(8, 5)));
+			Assert::AreEqual(true, LessThan(ToAnyBase(7, 5), ToAnyBase(8, 5)));
+		}
+
+		TEST_METHOD(GraterThanAnyBase)
+		{
+			Assert::AreEqual(true, GraterThan(ToAnyBase(9, 8), ToAnyBase(8, 8)));
+			Assert::AreEqual(false, GraterThan(ToAnyBase(8, 7), ToAnyBase(8, 7)));
+		}
+
+		TEST_METHOD(EqualAnyBase)
+		{
+			Assert::AreEqual(false, Equal(ToAnyBase(21, 3), ToAnyBase(17, 3)));
+			Assert::AreEqual(true, Equal(ToAnyBase(22, 11), ToAnyBase(22, 11)));
+			Assert::AreEqual(false, Equal(ToAnyBase(31, 21), ToAnyBase(33, 21)));
+		}
+
+		TEST_METHOD(NotEqualAnyBase)
+		{
+			Assert::AreEqual(true, NotEqual(ToAnyBase(25, 17), ToAnyBase(31, 17)));
+			Assert::AreEqual(false, NotEqual(ToAnyBase(17, 15), ToAnyBase(17, 15)));
+		}
+
+		TEST_METHOD(AnyBaseSum)
+		{
+			Assert::AreEqual(ToAnyBase(9, 6), Sum(ToAnyBase(5, 6), ToAnyBase(4, 6), 6));
+			Assert::AreEqual(ToAnyBase(8, 3), Sum(ToAnyBase(3, 3), ToAnyBase(5, 3), 3));
+		}
+
+		TEST_METHOD(AnyBaseDifference)
+		{
+			Assert::AreEqual({ 0 }, Difference(ToAnyBase(5, 4), ToAnyBase(5, 4), 4));
+			Assert::AreEqual(ToAnyBase(3, 6), Difference(ToAnyBase(5, 6), ToAnyBase(2, 6), 6));
+			Assert::AreEqual(ToAnyBase(12, 5), Difference(ToAnyBase(16, 5), ToAnyBase(4, 5), 5));
+		}
+
+		TEST_METHOD(AnyBaseMultiply)
+		{
+			Assert::AreEqual(ToAnyBase(15, 3), Multiply(ToAnyBase(3, 3), ToAnyBase(5, 3), 3));
+			Assert::AreEqual(ToAnyBase(21, 3), Multiply(ToAnyBase(7, 3), ToAnyBase(3, 3), 3));
+			Assert::AreEqual(ToAnyBase(32, 4), Multiply(ToAnyBase(4, 4), ToAnyBase(8, 4), 4));
+		}
+		TEST_METHOD(AnyBaseDivision)
+		{
+			Assert::AreEqual(ToAnyBase(5, 4), Division(ToAnyBase(25, 4), ToAnyBase(5, 4), 4));
+			Assert::AreEqual(ToAnyBase(3, 3), Division(ToAnyBase(15, 3), ToAnyBase(5, 3), 3));
+			Assert::AreEqual(ToAnyBase(4, 4), Division(ToAnyBase(16, 4), ToAnyBase(4, 4), 4));
+		}
+
+		TEST_METHOD(TestComplements)
+		{
+			Assert::AreEqual({ 6, 7, 8 }, ComplemetsByBase({ 3, 2, 1 }, 10));
 		}
 		
 		vector<char> ToBinary(int number)
@@ -214,50 +270,59 @@ namespace ByteOperations
 			return !Equal(bin1, bin2);
 		}
 
-		vector<char> Sum(vector<char> bin1, vector<char> bin2)
+		vector<char> Sum(vector<char> bin1, vector<char> bin2, int base)
 		{
 			int carry = 0;
 			vector<char> bin;
 			for (int i = 0; i <= max(bin1.size(), bin2.size()); i++)
 			{
-				bin.insert(bin.begin(), (GetAt(bin1, i) + GetAt(bin2, i) + carry) % 2);
-				carry = (GetAt(bin1, i) + GetAt(bin2, i) + carry) / 2;
+				bin.insert(bin.begin(), (GetAt(bin1, i) + GetAt(bin2, i) + carry) % base);
+				carry = (GetAt(bin1, i) + GetAt(bin2, i) + carry) / base;
 			}
 			return RemoveBeginingZero(bin);
 		}
 
-		vector<char> Difference(vector<char> bin1, vector<char> bin2)
+		vector<char> Difference(vector<char> bin1, vector<char> bin2, int base)
 		{
 			if ((bin1.size() - bin2.size()) != 0)
 			{
 				for (int i = 0; i <= (bin1.size() - bin2.size()); i++) 
 					bin2.insert(bin2.begin(), 0);
 			}
-			vector<char> bin = Sum(bin1, Sum(Not(bin2), ToBinary(1)));
+			vector<char> bin = Sum(bin1, Sum(ComplemetsByBase(bin2, base), ToAnyBase(1, base), base), base);
 			if (bin.size() > min(bin1.size(), bin2.size())) bin.erase(bin.begin());
 			return RemoveBeginingZero(bin);
 		}
 
-		vector<char> Multiply(vector<char> bin1, vector<char> bin2)
+		vector<char> Multiply(vector<char> bin1, vector<char> bin2, int base)
 		{
 			vector<char> bin = { 0 };
 			do
 			{
-				bin = Sum(bin, bin1);
-				bin2 = Difference(bin2, ToBinary(1));
+				bin = Sum(bin, bin1, base);
+				bin2 = Difference(bin2, ToAnyBase(1, base), base);
 			} while (NotEqual(bin2, { 0 }));
 			return bin;
 		}
 
-		vector<char> Division(vector<char> bin1, vector<char> bin2)
+		vector<char> Division(vector<char> bin1, vector<char> bin2, int base)
 		{
 			int div = 0;
 			while (NotEqual(bin1, {0}))
 			{
-				bin1 = Difference(bin1, bin2);
+				bin1 = Difference(bin1, bin2, base);
 				div++;
 			}
-			return ToBinary(div);
+			return ToAnyBase(div, base);
+		}
+
+		vector<char> ComplemetsByBase(vector<char> bin, int base)
+		{
+			for (int i = 0; i < bin.size(); i++)
+			{
+				bin[i] = base - 1 - bin[i];
+			}
+			return RemoveBeginingZero(bin);
 		}
 
 	};
