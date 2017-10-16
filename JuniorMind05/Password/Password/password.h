@@ -17,9 +17,7 @@ struct PasswordOptions
 	{
 		std::string ambiguous = "{}[]()/\\'`~,;:.<>\"";
 		std::string symbols = "!@#$%^&*-_+=|?";
-		std::string numbers = "1234567890";
 		std::string lowercase = "abcdefghijklmnopqrstuvwxyz";
-		std::string uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		std::string similar = "iIl10oO";
 	}strSets;
 
@@ -56,7 +54,7 @@ struct PasswordOptions
 		while (i < uppercase)
 		{
 			char nextChar = char(rndNo());
-			if (CheckChar(strSets.uppercase, nextChar) && !CheckChar(GetRestricted(), nextChar))
+			if ((nextChar >= 'A' && nextChar <= 'Z') && !CheckChar(GetRestricted(), nextChar))
 			{
 				str += nextChar;
 				i++;
@@ -73,7 +71,7 @@ struct PasswordOptions
 		while (i < numbers)
 		{
 			char nextChar = char(rndNo());
-			if (CheckChar(strSets.numbers, nextChar) && !CheckChar(GetRestricted(), nextChar))
+			if ((nextChar >= '0' && nextChar <= '9') && !CheckChar(GetRestricted(), nextChar))
 			{
 				str += nextChar;
 				i++;
@@ -99,7 +97,7 @@ struct PasswordOptions
 		return str;
 	}
 
-	std::string shufflecards(std::string str)
+	std::string ShufflePassword(std::string str)
 	{
 		std::random_device rd;
 		std::mt19937 g(rd());
@@ -117,7 +115,7 @@ struct PasswordOptions
 			char nextChar = char(rndNo());
 			if (CheckChar(GetAllowed(), nextChar) && !CheckChar(GetRestricted(), nextChar)) { password += nextChar; }
 		}
-		return shufflecards(password);
+		return ShufflePassword(password);
 	}
 
 };

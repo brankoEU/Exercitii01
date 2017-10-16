@@ -16,21 +16,21 @@ namespace Password
 		{
 			PasswordOptions options = { 7,2,2,1,true,true };
 			string password = options.GetUpperCases();
-			Assert::AreEqual(2, VerifyPassword(password, options.strSets.uppercase));
+			Assert::AreEqual(2, VerifyCharacters(password, 'A', 'Z'));
 		}
 
 		TEST_METHOD(VerifyGetNumbers)
 		{
 			PasswordOptions options = { 7,2,2,1,true,true };
 			string password = options.GetNumbers();
-			Assert::AreEqual(2, VerifyPassword(password, options.strSets.numbers));
+			Assert::AreEqual(2, VerifyCharacters(password, '0', '9'));
 		}
 
 		TEST_METHOD(VerifyGetSymbols)
 		{
 			PasswordOptions options = { 7,2,2,1,true,true };
 			string password = options.GetSymbols();
-			Assert::AreEqual(1, VerifyPassword(password, options.strSets.symbols));
+			Assert::AreEqual(1, VerifySymbols(password, options.strSets.symbols));
 		}
 
 		TEST_METHOD(VerifyAmbiguous)
@@ -44,14 +44,24 @@ namespace Password
 		{
 			PasswordOptions options = { 20,5,7,3,true,true };
 			string password = options.GeneratePassword();
-			Assert::AreEqual(5, VerifyPassword(password, options.strSets.uppercase));
-			Assert::AreEqual(7, VerifyPassword(password, options.strSets.numbers));
-			Assert::AreEqual(3, VerifyPassword(password, options.strSets.symbols));
+			Assert::AreEqual(5, VerifyCharacters(password, 'A', 'Z'));
+			Assert::AreEqual(7, VerifyCharacters(password, '0', '9'));
+			Assert::AreEqual(3, VerifySymbols(password, options.strSets.symbols));
 			Assert::AreEqual(true, VerifyAmbiguousAndSimilars(password, options.strSets.ambiguous));
 			Assert::AreEqual(true, VerifyAmbiguousAndSimilars(password, options.strSets.similar));
 		}
 		
-		int VerifyPassword(string password, string str)
+		int VerifyCharacters(string password, char min, char max)
+		{
+			int count = 0;
+			for each (char c in password)
+			{
+				if (c >= min && c <= max) { count++; }
+			}
+			return count;
+		}
+
+		int VerifySymbols(string password, string str)
 		{
 			int count = 0;
 			for each (char c in password)
