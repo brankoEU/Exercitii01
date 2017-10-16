@@ -1,9 +1,30 @@
+<<<<<<< HEAD
+#include <string>
+#include "generator.h"
+=======
 #ifndef PASSWORD_H
 #define PASSWORD_H
 #include <string>
+<<<<<<< HEAD
 #include <algorithm>
 #include <ctime>
 #include "generator.h"
+=======
+#include <random>
+
+class Generator {
+	std::uniform_int_distribution<int> dis;
+	std::mt19937 gen;
+public:
+	Generator(int lower = 33, int upper = 126)
+		: gen(std::random_device()()), dis(lower, upper) {}
+
+	int operator()() {
+		return dis(gen);
+	}
+};
+>>>>>>> ed8bb73f06027da45cd1e20eafb7ff2ac429c66f
+>>>>>>> a43f23bcbab71ce1fbdf359ba26d5ee9466d1b2e
 
 struct PasswordOptions
 {
@@ -120,6 +141,10 @@ struct PasswordOptions
 		return shufflecards(password);
 	}
 
+<<<<<<< HEAD
+};
+=======
 };
 
 #endif
+>>>>>>> ed8bb73f06027da45cd1e20eafb7ff2ac429c66f
