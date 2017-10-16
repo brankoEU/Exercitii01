@@ -16,16 +16,8 @@ struct PasswordOptions
 	{
 		std::string ambiguous = "{}[]()/\\'`~,;:.<>\"";
 		std::string symbols = "!@#$%^&*-_+=|?";
-		std::string lowercase = "abcdefghijklmnopqrstuvwxyz";
 		std::string similar = "iIl10oO";
 	}strSets;
-
-	std::string GetAllowed()
-	{
-		std::string allowed = strSets.lowercase;
-		if (!excludeAmbiguius) allowed += strSets.ambiguous;
-		return allowed;
-	}
 
 	std::string GetRestricted()
 	{
@@ -94,7 +86,7 @@ struct PasswordOptions
 		while (password.size() < passLenght)
 		{
 			char nextChar = char(rndNo());
-			if (CheckChar(GetAllowed(), nextChar) && !CheckChar(GetRestricted(), nextChar)) { password += nextChar; }
+			if (((nextChar >= 'a' && nextChar <= 'z') || CheckChar(strSets.ambiguous, nextChar)) && !CheckChar(GetRestricted(), nextChar)) { password += nextChar; }
 		}
 		return ShufflePassword(password);
 	}
