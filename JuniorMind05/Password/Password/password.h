@@ -46,12 +46,12 @@ struct PasswordOptions
 		return false;
 	}
 
-	std::string GetChars(char min, char max)
+	std::string GetChars(int opt, char min, char max)
 	{
 		Generator rndNo;
 		std::string str = "";
 		int i = 0;
-		while (i < uppercase)
+		while (i < opt)
 		{
 			char nextChar = char(rndNo());
 			if ((nextChar >= min && nextChar <= max) && !CheckChar(GetRestricted(), nextChar))
@@ -91,7 +91,7 @@ struct PasswordOptions
 	std::string GeneratePassword()
 	{
 		Generator rndNo;
-		std::string password = GetChars('A', 'Z') + GetChars('0', '9') + GetSymbols();
+		std::string password = GetChars(uppercase, 'A', 'Z') + GetChars(numbers, '0', '9') + GetSymbols();
 
 		while (password.size() < passLenght)
 		{
@@ -100,5 +100,4 @@ struct PasswordOptions
 		}
 		return ShufflePassword(password);
 	}
-
 };

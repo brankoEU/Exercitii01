@@ -15,14 +15,14 @@ namespace Password
 		TEST_METHOD(VerifyGetUpperCases)
 		{
 			PasswordOptions options = { 7,2,2,1,true,true };
-			string password = options.GetUpperCases();
+			string password = options.GetChars(options.uppercase, 'A', 'Z');
 			Assert::AreEqual(2, VerifyCharacters(password, 'A', 'Z'));
 		}
 
 		TEST_METHOD(VerifyGetNumbers)
 		{
 			PasswordOptions options = { 7,2,2,1,true,true };
-			string password = options.GetNumbers();
+			string password = options.GetChars(options.numbers, '0', '9');
 			Assert::AreEqual(2, VerifyCharacters(password, '0', '9'));
 		}
 
