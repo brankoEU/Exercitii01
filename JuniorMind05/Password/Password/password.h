@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <algorithm>
-#include <ctime>
 #include "generator.h"
 
 struct PasswordOptions
