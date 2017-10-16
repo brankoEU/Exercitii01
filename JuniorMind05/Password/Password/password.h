@@ -24,7 +24,6 @@ struct PasswordOptions
 	{
 		std::string allowed = strSets.lowercase;
 		if (!excludeAmbiguius) allowed += strSets.ambiguous;
-		if (!excludeSimilar) allowed += strSets.similar;
 		return allowed;
 	}
 
