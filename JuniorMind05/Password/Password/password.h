@@ -80,7 +80,6 @@ struct PasswordOptions
 
 	std::string GeneratePassword()
 	{
-		std::string password = GetChars(uppercase, 'A', 'Z') + GetChars(numbers, '0', '9') + GetSymbols() + GetChars(passLenght - uppercase - numbers - symbols, 'a', 'z');
-		return ShufflePassword(password);
+		return ShufflePassword(GetChars(uppercase, 'A', 'Z') + GetChars(numbers, '0', '9') + GetSymbols() + GetChars(passLenght - uppercase - numbers - symbols, 'a', 'z'));
 	}
 };
