@@ -1,4 +1,8 @@
+#ifndef PASSWORD_H
+#define PASSWORD_H
 #include <string>
+#include <algorithm>
+#include <ctime>
 #include "generator.h"
 
 struct PasswordOptions
@@ -96,6 +100,13 @@ struct PasswordOptions
 		return str;
 	}
 
+	std::string shufflecards(std::string str)
+	{
+		srand(time(NULL));
+		random_shuffle(str.begin(), str.end());
+		return str;
+	}
+
 	std::string GeneratePassword()
 	{
 		Generator rndNo;
@@ -106,7 +117,9 @@ struct PasswordOptions
 			char nextChar = char(rndNo());
 			if (CheckChar(GetAllowed(), nextChar) && !CheckChar(GetRestricted(), nextChar)) { password += nextChar; }
 		}
-		return password;
+		return shufflecards(password);
 	}
 
 };
+
+#endif

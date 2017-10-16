@@ -1,3 +1,5 @@
+#ifndef GENERATOR_H
+#define GENERATOR_H
 #include <random>
 
 class Generator {
@@ -11,4 +13,6 @@ public:
 		return dis(gen);
 	}
 };
+
+#endif
 
