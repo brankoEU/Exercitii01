@@ -1,5 +1,4 @@
-#ifndef PASSWORD_H
-#define PASSWORD_H
+#pragma once
 #include <string>
 #include <algorithm>
 #include <ctime>
@@ -102,8 +101,9 @@ struct PasswordOptions
 
 	std::string shufflecards(std::string str)
 	{
-		srand(time(NULL));
-		random_shuffle(str.begin(), str.end());
+		std::random_device rd;
+		std::mt19937 g(rd());
+		std::shuffle(str.begin(), str.end(), g);
 		return str;
 	}
 
@@ -121,5 +121,3 @@ struct PasswordOptions
 	}
 
 };
-
-#endif

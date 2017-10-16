@@ -1,5 +1,4 @@
-#ifndef GENERATOR_H
-#define GENERATOR_H
+#pragma once
 #include <random>
 
 class Generator {
@@ -13,6 +12,4 @@ public:
 		return dis(gen);
 	}
 };
-
-#endif
 
