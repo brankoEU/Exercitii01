@@ -29,11 +29,7 @@ struct PasswordOptions
 
 	bool CheckChar(std::string str, char toCheck)
 	{
-		for each(char c in str)
-		{
-			if (toCheck == c) return true;
-		}
-		return false;
+		return (str.find(toCheck) != std::string::npos) ? true : false;
 	}
 
 	std::string GetChars(int opt, char min, char max)
