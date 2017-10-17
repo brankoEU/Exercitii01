@@ -21,12 +21,17 @@ namespace Fibonacci
 
 		TEST_METHOD(FibonacciTest3)
 		{
+			Assert::AreEqual(34, Fibonacci(9));
+		}
+
+		TEST_METHOD(FibonacciTest4)
+		{
 			Assert::AreEqual(610, Fibonacci(15));
 		}
 
-		int Fibonacci(int nr)
+		int Fibonacci(int n)
 		{
-			return nr < 2 ? nr : Fibonacci(nr - 1) + Fibonacci(nr - 2);
+			return n < 2 ? n : Fibonacci(n - 1) + Fibonacci(n - 2);
 		}
 
 	};
