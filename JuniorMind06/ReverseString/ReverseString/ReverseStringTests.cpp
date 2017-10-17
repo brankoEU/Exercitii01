@@ -20,10 +20,9 @@ namespace ReverseStrings
 			Assert::AreEqual("nofelet", ReverseString("telefon").c_str());
 		}
 
-		string ReverseString(string str)
+		string ReverseString(string str, string prev = "")
 		{
-			if (str.size() < 2) return str;
-			return str[str.size() - 1]+ReverseString(str.substr(0, str.size() - 1));
+			return str.length() == 0 ? prev : ReverseString(str.substr(0, str.length() - 1), prev += str[str.length() - 1]);
 		}
 
 	};
