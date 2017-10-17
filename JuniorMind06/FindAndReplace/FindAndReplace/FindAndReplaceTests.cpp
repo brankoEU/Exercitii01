@@ -17,7 +17,8 @@ namespace FindAndReplace
 
 		string FindAndReplace(string str, char c, string replacer)
 		{
-			return "";
+			if (str.find(c) == string::npos) return str;
+			return str.replace(str.find(c), str.find(c),replacer);
 		}
 
 	};
