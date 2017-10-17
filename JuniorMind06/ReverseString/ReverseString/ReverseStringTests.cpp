@@ -15,9 +15,15 @@ namespace ReverseStrings
 			Assert::AreEqual("da", ReverseString("ad").c_str());
 		}
 
+		TEST_METHOD(TestMethod2)
+		{
+			Assert::AreEqual("nofelet", ReverseString("telefon").c_str());
+		}
+
 		string ReverseString(string str)
 		{
-			return "";
+			if (str.size() < 2) return str;
+			return str[str.size() - 1]+ReverseString(str.substr(0, str.size() - 1));
 		}
 
 	};
