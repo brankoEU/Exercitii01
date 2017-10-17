@@ -9,9 +9,14 @@ namespace Fibonacci
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(FibonacciTest1)
 		{
-			// TODO: Your test code here
+			Assert::AreEqual(21, Fibonacci(8));
+		}
+
+		int Fibonacci(int nr)
+		{
+			return 0;
 		}
 
 	};
