@@ -25,10 +25,14 @@ namespace FindAndReplace
 			Assert::AreEqual("telefon", FindAndReplace("txlxfon", 'x', "e").c_str());
 		}
 
+		TEST_METHOD(TestMethod4)
+		{
+			Assert::AreEqual("ExercitiiJuniorMind", FindAndReplace("Ex erci tiiJu  nior Mi nd", ' ', "").c_str());
+		}
+
 		string FindAndReplace(string str, char c, string replacer)
 		{
-			if (str.find(c) == string::npos) return str;
-			return FindAndReplace((str.replace(str.find(c), str.find(c),replacer)),c,replacer);
+			return (str.find(c) == string::npos) ? str : FindAndReplace(str.replace(str.find(c), 1, replacer), c, replacer);
 		}
 
 	};
