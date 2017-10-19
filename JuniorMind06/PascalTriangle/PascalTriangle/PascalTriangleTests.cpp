@@ -35,20 +35,20 @@ namespace PascalTriangle
 			Assert::AreEqual({ 1,5,10,10,5,1 }, GenerateRow(5));
 		}
 
-		int GeneratePascal(int row, int col)
+		vector<int> GetNextRow(vector<int> row)
 		{
-			if (col == 0 || col == row) return 1;
-			return GeneratePascal(row - 1, col - 1) + GeneratePascal(row - 1, col);
+			vector<int> nextRow;
+			for (int i = 0; i <= row.size(); i++)
+			{
+				if (i == 0 || i == row.size()) nextRow.emplace_back(1);
+				else nextRow.emplace_back(row[i-1]+row[i]);
+			}
+			return nextRow;
 		}
 
-		vector<int> GenerateRow(int row)
+		vector<int> GenerateRow(int rowNr, vector<int> prev = {})
 		{
-			vector<int> rez;
-			for (int i = 0; i <= row; i++)
-			{
-				rez.emplace_back(GeneratePascal(row, i));
-			}
-			return rez;
+			return rowNr < 0 ? prev : GenerateRow(rowNr-1, GetNextRow(prev));
 		}
 
 	};
