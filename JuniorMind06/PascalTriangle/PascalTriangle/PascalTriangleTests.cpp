@@ -22,22 +22,22 @@ namespace PascalTriangle
 		
 		TEST_METHOD(TestMethod1)
 		{
-			Assert::AreEqual({ 1 , 1 }, GenerateRow(1));
+			Assert::AreEqual({ 1 , 1 }, GenerateRow(2));
 		}
 
 		TEST_METHOD(TestMethod2)
 		{
-			Assert::AreEqual({ 1,3,3,1 }, GenerateRow(3));
+			Assert::AreEqual({ 1,3,3,1 }, GenerateRow(4));
 		}
 
 		TEST_METHOD(TestMethod3)
 		{
-			Assert::AreEqual({ 1,5,10,10,5,1 }, GenerateRow(5));
+			Assert::AreEqual({ 1,5,10,10,5,1 }, GenerateRow(6));
 		}
 
 		TEST_METHOD(TestMethod4)
 		{
-			Assert::AreEqual({ 1,11,55,165,330,462,462,330,165,55,11,1 }, GenerateRow(11));
+			Assert::AreEqual({ 1,11,55,165,330,462,462,330,165,55,11,1 }, GenerateRow(12));
 		}
 
 		vector<int> GetNextRow(vector<int> row, int i, vector<int> nextRow = {})
@@ -48,7 +48,7 @@ namespace PascalTriangle
 
 		vector<int> GenerateRow(int rowNr, vector<int> prev = {})
 		{
-			return rowNr < 0 ? prev : GenerateRow(rowNr-1, GetNextRow(prev, prev.size()));
+			return rowNr < 1 ? prev : GenerateRow(rowNr-1, GetNextRow(prev, prev.size()));
 		}
 
 	};
