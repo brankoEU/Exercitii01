@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace std;
 
 namespace HanoiTowers
 {		
@@ -11,7 +12,12 @@ namespace HanoiTowers
 		
 		TEST_METHOD(TestMethod1)
 		{
-			// TODO: Your test code here
+			Assert::AreEqual("AB", Hanoi(1, 'A', 'B', 'C').c_str());
+		}
+
+		string Hanoi(int disc, char a, char b, char c)
+		{
+			return "";
 		}
 
 	};
