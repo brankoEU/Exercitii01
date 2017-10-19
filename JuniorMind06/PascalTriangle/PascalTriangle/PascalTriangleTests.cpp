@@ -22,12 +22,28 @@ namespace PascalTriangle
 		
 		TEST_METHOD(TestMethod1)
 		{
-			Assert::AreEqual({ 1 }, GeneratePascal(1));
+			Assert::AreEqual({ 1 , 1 }, GenerateRow(1));
 		}
 
-		vector<int> GeneratePascal(int line)
+		TEST_METHOD(TestMethod2)
 		{
-			return {};
+			Assert::AreEqual({ 1,3,3,1 }, GenerateRow(3));
+		}
+
+		int GeneratePascal(int row, int col)
+		{
+			if (col == 0 || col == row) return 1;
+			return GeneratePascal(row - 1, col - 1) + GeneratePascal(row - 1, col);
+		}
+
+		vector<int> GenerateRow(int row)
+		{
+			vector<int> rez;
+			for (int i = 0; i <= row; i++)
+			{
+				rez.emplace_back(GeneratePascal(row, i));
+			}
+			return rez;
 		}
 
 	};
