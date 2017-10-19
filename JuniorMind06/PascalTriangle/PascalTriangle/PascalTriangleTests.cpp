@@ -43,7 +43,7 @@ namespace PascalTriangle
 		vector<int> GetNextRow(vector<int> row, int i, vector<int> nextRow = {})
 		{
 			i == 0 || i == row.size() ? nextRow.emplace_back(1) : nextRow.emplace_back(row[i - 1] + row[i]);
-			return i==0 ? nextRow : GetNextRow(row, i-1, nextRow);
+			return i == 0 ? nextRow : GetNextRow(row, i - 1, nextRow);
 		}
 
 		vector<int> GenerateRow(int rowNr, vector<int> prev = {})
