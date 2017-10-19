@@ -30,6 +30,11 @@ namespace PascalTriangle
 			Assert::AreEqual({ 1,3,3,1 }, GenerateRow(3));
 		}
 
+		TEST_METHOD(TestMethod3)
+		{
+			Assert::AreEqual({ 1,5,10,10,5,1 }, GenerateRow(5));
+		}
+
 		int GeneratePascal(int row, int col)
 		{
 			if (col == 0 || col == row) return 1;
