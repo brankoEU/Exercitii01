@@ -25,16 +25,14 @@ namespace HanoiTowers
 			Assert::AreEqual("AC AB CB AC BA BC AC", Hanoi(3, "A", "B", "C").c_str());
 		}
 
-		string Hanoi(int disc, string a, string b, string c)
+		string Hanoi(int disks, string a, string b, string c)
 		{
-			string r = "";
-			if (disc == 1)  {return (a+c); }
-
-			r+=(Hanoi(disc - 1, a, c, b));
-			r+=" " + (Hanoi(1, a, b, c));
-			r+=" " + (Hanoi(disc - 1, b, a, c));
-
-			return r;
+			string result = "";
+			if (disks == 1) { return a + c; }
+			result += Hanoi(disks - 1, a, c, b);
+			result += " " + Hanoi(1, a, b, c);
+			result += " " + Hanoi(disks - 1, b, a, c);
+			return result;
 		}
 
 	};
