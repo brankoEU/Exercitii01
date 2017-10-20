@@ -12,12 +12,23 @@ namespace HanoiTowers
 		
 		TEST_METHOD(TestMethod1)
 		{
-			Assert::AreEqual("AB", Hanoi(1, 'A', 'B', 'C').c_str());
+			Assert::AreEqual("AC", Hanoi(1, "A", "B", "C").c_str());
 		}
 
-		string Hanoi(int disc, char a, char b, char c)
+		TEST_METHOD(TestMethod2)
 		{
-			return "";
+			Assert::AreEqual("AB AC BC", Hanoi(2, "A", "B", "C").c_str());
+		}
+
+		string Hanoi(int disc, string a, string b, string c, string r = "")
+		{
+			if (disc == 1)  {return (a + c); }
+
+			r+=(Hanoi(disc - 1, a, c, b, r));
+			r+=" " + (Hanoi(1, a, b, c, r));
+			r+=" " + (Hanoi(disc - 1, b, a, c, r));
+
+			return r;
 		}
 
 	};
