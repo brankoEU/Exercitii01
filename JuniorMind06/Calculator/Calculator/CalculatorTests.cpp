@@ -14,15 +14,15 @@ namespace Calculator
 		
 		TEST_METHOD(TestMethod1)
 		{
-			//Assert::AreEqual(12.0, Calculate("* 3 4"));
-			Assert::AreEqual( "0" , Calculate("* 3 4").c_str());
+			Assert::AreEqual(12.0, Calculate("* 3 4"));
 		}
 
-		string Calculate(string expresion)
+		double Calculate(string expresion)
 		{
 			istringstream iss(expresion);
 			vector<string> split((istream_iterator<string>(iss)), istream_iterator<string>());
-			return split[2];
+
+			return stod(split[2]);
 		}
 
 	};
