@@ -22,11 +22,25 @@ namespace SortLotoExtraction
 		
 		TEST_METHOD(TestMethod1)
 		{
-			Assert::AreEqual({ 1,5,14,21,42,49 }, Sort({ 42,14,1,5,49,1 }));
+			Assert::AreEqual({ 1,5,14,21,42,49 }, Sort({ 42,14,21,5,49,1 }));
 		}
 
 		vector<int> Sort(vector<int> list)
 		{
+			int i = 0;
+			while (i<list.size())
+			{
+				int minPos = i;
+				for (int j = i; j < list.size(); j++)
+				{
+					if (list[j] < list[minPos])
+					{
+						minPos = j;
+					}
+				}
+				swap(list[i], list[minPos]);
+				i++;
+			}
 			return list;
 		}
 
