@@ -28,9 +28,9 @@ namespace Calculator
 			Assert::AreEqual(1549.4166666666667, Calculate("+ / * + 56 45 46 3 - 1 0.25",i));
 		}
 
-		bool isNumber(const string& s)
+		bool isOperator(const string& s)
 		{
-			return (strspn(s.c_str(), "0123456789") == s.size());
+			return (strspn(s.c_str(), "+-*/") == s.size());
 		}
 
 		double Calculate(string expresion, int& i)
@@ -39,7 +39,7 @@ namespace Calculator
 			vector<string> split((istream_iterator<string>(iss)), istream_iterator<string>());
 
 			string token = split[i++];
-			if (isNumber(token)) { return stod(token); }
+			if (!isOperator(token)) { return stod(token); }
 			else
 			{
 				if (token == "+") return Calculate(expresion, i) + Calculate(expresion, i);
