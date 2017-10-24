@@ -30,7 +30,8 @@ namespace Calculator
 
 		bool isOperator(const string& s)
 		{
-			return (strspn(s.c_str(), "+-*/") == s.size());
+			string ops = "+-*/";
+			return (ops.find(s)!=string::npos);
 		}
 
 		double Calculate(string expresion, int& i)
