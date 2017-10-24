@@ -28,9 +28,8 @@ namespace Calculator
 			Assert::AreEqual(1549.4166666666667, Calculate("+ / * + 56 45 46 3 - 1 0.25",i));
 		}
 
-		bool isOperator(const string& s)
+		bool isOperator(const string& s, string ops = "+-*/")
 		{
-			string ops = "+-*/";
 			return (ops.find(s)!=string::npos);
 		}
 
