@@ -14,15 +14,39 @@ namespace Calculator
 		
 		TEST_METHOD(TestMethod1)
 		{
-			Assert::AreEqual(12.0, Calculate("* 3 4"));
+			int i = 0;
+			Assert::AreEqual(12.0, Calculate("* 3 4" , i));
+		}
+		TEST_METHOD(TestMethod2)
+		{
+			int i = 0;
+			Assert::AreEqual(4.0, Calculate("* + 1 1 2", i));
+		}
+		TEST_METHOD(TestMethod3)
+		{
+			int i = 0;
+			Assert::AreEqual(1549.4166666666667, Calculate("+ / * + 56 45 46 3 - 1 0.25",i));
 		}
 
-		double Calculate(string expresion)
+		bool isNumber(const string& s)
+		{
+			return (strspn(s.c_str(), "0123456789") == s.size());
+		}
+
+		double Calculate(string expresion, int& i)
 		{
 			istringstream iss(expresion);
 			vector<string> split((istream_iterator<string>(iss)), istream_iterator<string>());
 
-			return stod(split[2]);
+			string token = split[i++];
+			if (isNumber(token)) { return stod(token); }
+			else
+			{
+				if (token == "+") return Calculate(expresion, i) + Calculate(expresion, i);
+				if (token == "-") return Calculate(expresion, i) - Calculate(expresion, i);
+				if (token == "*") return Calculate(expresion, i) * Calculate(expresion, i);
+				if (token == "/") return Calculate(expresion, i) / Calculate(expresion, i);
+			}
 		}
 
 	};
