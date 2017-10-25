@@ -23,6 +23,7 @@ namespace SortLotoExtraction
 		
 		TEST_METHOD(SelectionSort)
 		{
+			//vector<int> list = test();
 			vector<int> list = { 42,14,21,5,49,1 };
 			SelectionSort(list);
 			Assert::AreEqual({ 1,5,14,21,42,49 }, list);
@@ -30,6 +31,7 @@ namespace SortLotoExtraction
 
 		TEST_METHOD(QuickSort)
 		{ 
+			//vector<int> list = test();
 			vector<int> list = { 42,14,21,5,49,1 };
 			QuickSort(list, 0, list.size() - 1);
 			Assert::AreEqual({ 1,5,14,21,42,49 }, list);
@@ -37,12 +39,21 @@ namespace SortLotoExtraction
 
 		TEST_METHOD(InsersionSort)
 		{
+			//vector<int> list = test();
 			vector<int> list = { 42,14,21,5,49,1 };
-			InsersionSort(list, list.size()-1);
+			InsertionSort(list, list.size());
 			Assert::AreEqual({ 1,5,14,21,42,49 }, list);
 		}
 
-		//SelectionSort
+		TEST_METHOD(ShellSort)
+		{
+			//vector<int> list = test();
+			vector<int> list = { 42,14,21,5,49,1 };
+			ShellSort(list, list.size());
+			Assert::AreEqual({ 1,5,14,21,42,49 }, list);
+		}
+
+		//SelectionSort .....
 		void SelectionSort(vector<int> &list)
 		{
 			for (int i = 0; i < list.size()-1; i++)
@@ -78,26 +89,55 @@ namespace SortLotoExtraction
 						i++;
 						swap(list[i], list[j]);
 					}
-				}
+			}
 			swap(list[i + 1], list[high]);
 			return (i + 1);
 		}
 
 		//InsertionSort .....
-		void InsersionSort(vector<int> &list, int n)
+		void InsertionSort(vector<int> &list, int n)
 		{
-			if (n > 0)
+			int i, key, j;
+			for (i = 1; i < n; i++)
 			{
-				InsersionSort(list, n - 1);
-				int x = list[n];
-				int j = n - 1;
-				while (j >= 0 && list[j] > x)
+				key = list[i];
+				j = i - 1;
+				while (j >= 0 && list[j] > key)
 				{
 					list[j + 1] = list[j];
-					j--;
+					j = j - 1;
 				}
-				list[j + 1] = x;
+				list[j + 1] = key;
 			}
+		}
+
+		//ShellSort .....
+		void ShellSort(vector<int> &list, int n)
+		{
+			for (int gap = n / 2; gap > 0; gap /= 2)
+			{
+				for (int i = gap; i < n; i += 1)
+				{
+					int temp = list[i];
+					int j;
+					for (j = i; j >= gap && list[j - gap] > temp; j -= gap)
+						list[j] = list[j - gap];
+
+					list[j] = temp;
+				}
+			}
+		}
+
+		vector<int> test()
+		{
+			int n = 5000;
+			vector<int> list;
+			Generator genNo;
+			for (int i = 0; i < n; i++)
+			{
+				list.emplace_back(genNo());
+			}
+			return list;
 		}
 
 	};
