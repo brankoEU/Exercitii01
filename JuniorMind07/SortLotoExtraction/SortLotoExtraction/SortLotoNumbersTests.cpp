@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include <numeric>
 #include <vector>
+#include "generator.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
@@ -34,6 +35,14 @@ namespace SortLotoExtraction
 			Assert::AreEqual({ 1,5,14,21,42,49 }, list);
 		}
 
+		TEST_METHOD(InsersionSort)
+		{
+			vector<int> list = { 42,14,21,5,49,1 };
+			InsersionSort(list, list.size()-1);
+			Assert::AreEqual({ 1,5,14,21,42,49 }, list);
+		}
+
+		//SelectionSort
 		void SelectionSort(vector<int> &list)
 		{
 			for (int i = 0; i < list.size()-1; i++)
@@ -47,7 +56,7 @@ namespace SortLotoExtraction
 			}
 		}
 
-
+		//QuickSort .....
 		void QuickSort(vector<int> &list, int low, int high)
 		{
 			if (low < high)
@@ -72,6 +81,23 @@ namespace SortLotoExtraction
 				}
 			swap(list[i + 1], list[high]);
 			return (i + 1);
+		}
+
+		//InsertionSort .....
+		void InsersionSort(vector<int> &list, int n)
+		{
+			if (n > 0)
+			{
+				InsersionSort(list, n - 1);
+				int x = list[n];
+				int j = n - 1;
+				while (j >= 0 && list[j] > x)
+				{
+					list[j + 1] = list[j];
+					j--;
+				}
+				list[j + 1] = x;
+			}
 		}
 
 	};
