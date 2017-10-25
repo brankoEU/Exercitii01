@@ -20,28 +20,58 @@ namespace SortLotoExtraction
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(SelectionSort)
 		{
-			Assert::AreEqual({ 1,5,14,21,42,49 }, Sort({ 42,14,21,5,49,1 }));
+			vector<int> list = { 42,14,21,5,49,1 };
+			SelectionSort(list);
+			Assert::AreEqual({ 1,5,14,21,42,49 }, list);
 		}
 
-		vector<int> Sort(vector<int> list)
+		TEST_METHOD(QuickSort)
+		{ 
+			vector<int> list = { 42,14,21,5,49,1 };
+			QuickSort(list, 0, list.size() - 1);
+			Assert::AreEqual({ 1,5,14,21,42,49 }, list);
+		}
+
+		void SelectionSort(vector<int> &list)
 		{
-			int i = 0;
-			while (i<list.size())
+			for (int i = 0; i < list.size()-1; i++)
 			{
 				int minPos = i;
-				for (int j = i; j < list.size(); j++)
+				for (int j = i+1; j < list.size(); j++)
 				{
-					if (list[j] < list[minPos])
+					if (list[j] < list[minPos]) { minPos = j; }
+				}
+				if (minPos != i) { swap(list[i], list[minPos]); }
+			}
+		}
+
+
+		void QuickSort(vector<int> &list, int low, int high)
+		{
+			if (low < high)
+			{
+				int pi = Partition(list, low, high);
+				QuickSort(list, low, pi - 1);
+				QuickSort(list, pi + 1, high);
+			}
+		}
+
+		int Partition(vector<int> &list, int low, int high)
+		{
+			int pivot = list[high];
+			int i = (low - 1);
+			for (int j = low; j <= high - 1; j++)
+			{
+				if (list[j] <= pivot)
 					{
-						minPos = j;
+						i++;
+						swap(list[i], list[j]);
 					}
 				}
-				swap(list[i], list[minPos]);
-				i++;
-			}
-			return list;
+			swap(list[i + 1], list[high]);
+			return (i + 1);
 		}
 
 	};
