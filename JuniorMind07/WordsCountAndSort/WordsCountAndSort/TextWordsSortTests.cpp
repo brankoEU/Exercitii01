@@ -3,10 +3,17 @@
 #include <numeric>
 #include <iterator>
 #include <vector>
-#include <algorithm>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
+
+namespace Microsoft {
+	namespace VisualStudio {
+		namespace CppUnitTestFramework {
+			inline wstring ToString(const vector<int>& t) { return accumulate(t.begin(), t.end(), wstring(L""), [](wstring result, int item) -> wstring { return result + L" " + to_wstring(item); }); }
+		}
+	}
+}
 
 namespace WordsCountAndSort
 {		
@@ -16,7 +23,12 @@ namespace WordsCountAndSort
 		
 		TEST_METHOD(TestMethod1)
 		{
-			//Assert::AreEqual("", StoreAndCount("mama tata mama mama tata sac").c_str());
+			Assert::AreEqual({3,2,1}, PrintResult("mama tata mama mama tata sac"));
+		}
+
+		TEST_METHOD(TestMethod2)
+		{
+			Assert::AreEqual({ 6,6,6,3,3,3,2,2,1,1,1,1,1,1 }, PrintResult("Nory was a Catholic because her mother was a Catholic and Nory’s mother was a Catholic because her father was a Catholic and her father was a Catholic because his mother was a Catholic or had been"));
 		}
 
 		struct Text
@@ -52,10 +64,38 @@ namespace WordsCountAndSort
 			vector<string> split = SplitString(text);
 			for (int i = 0; i < split.size(); i++)
 			{
-				if (!Contain(words,split[i]))
-					words.push_back({ split[i] , count(split.begin(), split.end(), split[i]) });
+				if (!Contain(words, split[i]))
+				{
+					words.push_back({ split[i] ,static_cast<int>(count(split.begin(), split.end(), split[i])) });
+					InsertionSort(words, words.size());
+				}
 			}
-			return words;
+			return words;;
+		}
+
+		void InsertionSort(vector<Text> &list, int n)
+		{
+			int i, j;
+			for (i = 1; i < n; i++)
+			{
+				Text key = list[i];
+				j = i - 1;
+				while (j >= 0 && list[j].counter < key.counter)
+				{
+					list[j + 1] = list[j];
+					j = j - 1;
+				}
+				list[j + 1] = key;
+			}
+		}
+
+		vector<int> PrintResult(string text)
+		{
+			vector<int> result;
+			vector<Text> words = StoreAndCount(text);
+			for (int i = 0; i < words.size(); i++)
+				result.emplace_back(words[i].counter);
+			return result;
 		}
 
 	};
