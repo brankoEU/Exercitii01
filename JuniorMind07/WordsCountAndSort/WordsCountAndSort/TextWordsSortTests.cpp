@@ -71,7 +71,7 @@ namespace WordsCountAndSort
 					//ShellSort(words, words.size());
 				}
 			}
-			return words;;
+			return words;
 		}
 
 		void InsertionSort(vector<Text> &vec, int n)
