@@ -43,7 +43,7 @@ namespace RepairCenter
 
 		vector<Order> data_base = { { 1,"Brakes Change",Priority::Medium } ,{ 2,"Drivetrain Check",Priority::Medium } ,{ 3,"Oil Change",Priority::Low } ,{ 4,"Transmission Trouble",Priority::High } ,{ 5,"Suspension Problems",Priority::Medium } ,{ 6,"Replacing Exhaust",Priority::High } ,{ 7,"Replacing Catalytic Converter",Priority::Medium } ,{ 8,"Check ABS Wheels Sensors",Priority::High } ,{ 9,"Change Tires",Priority::Low } ,{ 10,"Removing Aftermarket Alarm",Priority::Low } };
 
-		void shellSort(vector<Order> &db, int n)
+		void ShellSort(vector<Order> &db, int n)
 		{
 			for (int gap = n / 2; gap > 0; gap /= 2)
 			{
@@ -69,7 +69,7 @@ namespace RepairCenter
 		vector<int> SortOrders()
 		{
 			vector<int> result;
-			shellSort(data_base,data_base.size());
+			ShellSort(data_base,data_base.size());
 			for (int i = 0; i < data_base.size(); i++)
 				result.emplace_back(data_base[i].ordNo);
 			return result;
