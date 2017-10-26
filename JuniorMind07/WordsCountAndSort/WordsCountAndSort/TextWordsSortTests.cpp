@@ -68,24 +68,41 @@ namespace WordsCountAndSort
 				{
 					words.push_back({ split[i] ,static_cast<int>(count(split.begin(), split.end(), split[i])) });
 					InsertionSort(words, words.size());
+					//ShellSort(words, words.size());
 				}
 			}
 			return words;;
 		}
 
-		void InsertionSort(vector<Text> &list, int n)
+		void InsertionSort(vector<Text> &vec, int n)
 		{
 			int i, j;
 			for (i = 1; i < n; i++)
 			{
-				Text key = list[i];
+				Text key = vec[i];
 				j = i - 1;
-				while (j >= 0 && list[j].counter < key.counter)
+				while (j >= 0 && vec[j].counter < key.counter)
 				{
-					list[j + 1] = list[j];
+					vec[j + 1] = vec[j];
 					j = j - 1;
 				}
-				list[j + 1] = key;
+				vec[j + 1] = key;
+			}
+		}
+
+		void ShellSort(vector<Text> &vec, int n)
+		{
+			for (int gap = n / 2; gap > 0; gap /= 2)
+			{
+				for (int i = gap; i < n; i += 1)
+				{
+					Text temp = vec[i];
+					int j;
+					for (j = i; j >= gap && vec[j - gap].counter < temp.counter; j -= gap)
+						vec[j] = vec[j - gap];
+
+					vec[j] = temp;
+				}
 			}
 		}
 
