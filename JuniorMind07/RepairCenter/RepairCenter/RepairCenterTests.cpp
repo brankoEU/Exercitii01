@@ -51,12 +51,19 @@ namespace RepairCenter
 				{
 					Order temp =  db[i];
 					int j;
-					for (j = i; j >= gap && db[j - gap].ordPriority < temp.ordPriority; j -= gap)
+					for (j = i; j >= gap && CompareElements(db[j - gap], temp); j -= gap)
 						db[j] = db[j - gap];
 
 					db[j] = temp;
 				}
 			}
+		}
+
+		bool CompareElements(Order ord1, Order ord2)
+		{
+			if (ord1.ordPriority == ord2.ordPriority)
+				return ord1.ordNo > ord2.ordNo;
+			return ord1.ordPriority < ord2.ordPriority;
 		}
 
 		vector<int> SortOrders()
