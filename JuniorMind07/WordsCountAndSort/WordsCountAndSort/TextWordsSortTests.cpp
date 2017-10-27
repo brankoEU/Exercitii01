@@ -67,8 +67,9 @@ namespace WordsCountAndSort
 				if (!Contain(words, split[i]))
 				{
 					words.push_back({ split[i] ,static_cast<int>(count(split.begin(), split.end(), split[i])) });
-					InsertionSort(words, words.size());
-					//ShellSort(words, words.size());
+					if ((words.size() > 1) && (words[words.size()-1].counter > words[words.size() - 2].counter))
+						InsertionSort(words, words.size());
+					    //ShellSort(words, words.size());
 				}
 			}
 			return words;
