@@ -57,6 +57,14 @@ namespace WordsCountAndSort
 			}
 			return false;
 		}
+		/*My counter....*/
+		int Counter(vector<string> split, string toCount)
+		{
+			int count = 0;
+			for (int i = 0; i < split.size(); i++)
+				if (toCount == split[i]) count++;
+			return count;
+		}
 
 		vector<Text> StoreAndCount(string text)
 		{
@@ -66,7 +74,8 @@ namespace WordsCountAndSort
 			{
 				if (!Contain(words, split[i]))
 				{
-					words.push_back({ split[i] ,static_cast<int>(count(split.begin(), split.end(), split[i])) });
+					words.push_back({ split[i] ,static_cast<int>(count(split.begin(), split.end(), split[i])) }); /*C++ counter...*/
+					//words.push_back({ split[i] ,static_cast<int>(Counter(split, split[i])) }); /*My counter....*/
 					if ((words.size() > 1) && (words[words.size()-1].counter > words[words.size() - 2].counter))
 						InsertionSort(words, words.size());
 					    //ShellSort(words, words.size());
@@ -85,7 +94,7 @@ namespace WordsCountAndSort
 				while (j >= 0 && vec[j].counter < key.counter)
 				{
 					vec[j + 1] = vec[j];
-					j = j - 1;
+					j--;
 				}
 				vec[j + 1] = key;
 			}
