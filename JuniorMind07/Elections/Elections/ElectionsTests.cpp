@@ -26,6 +26,8 @@ namespace Elections
 			return this->votes;
 		}
 	};
+
+
 	enum class sort_type { byVotes, byNames };
 
 	class PollingStation
@@ -72,6 +74,23 @@ namespace Elections
 		{
 			shellSort(sort, GetCandidates().size());
 		}
+			
+		PollingStation AddVotes(std::vector<PollingStation> stations)
+		{
+			stations[0].Sort(sort_type::byNames);
+			for (int i = 1; i < stations.size(); i++)
+			{
+				stations[i].Sort(sort_type::byNames);
+				for (int j = 0; j < GetCandidates().size(); j++)
+				{
+					//int a = stations[0].GetCandidates()[j].GetVotes();
+					//a += stations[i].GetCandidates()[j].GetVotes();
+					//stations[0].GetCandidates()[j].GetVotes();
+				}
+			}
+			return stations[0];
+		}
+
 	};
 
 	TEST_CLASS(ElectionsSortTests)
@@ -87,13 +106,40 @@ namespace Elections
 			Assert::AreEqual("PC", st1.GetCandidates()[0].GetName().c_str());
 			Assert::AreEqual("PNL", st2.GetCandidates()[0].GetName().c_str());
 		}
-		
-		void StructFill()
+
+		TEST_METHOD(FillStations)
 		{
-			PollingStation station1 = { "station1", { { "PSD",43 },{ "PNL",31 },{ "PC",27 } } };
-			PollingStation station2 = { "station2", { { "PNL",62 },{ "PC",51 },{ "PSD",46 } } };
-			PollingStation station3 = { "station3", { { "PC",34 },{ "PNL",22 },{ "PSD",19 } } };
+			std::vector<PollingStation> st = StationsFill();
+
+			Assert::AreEqual("PSD", st[0].GetCandidates()[0].GetName().c_str());
+			Assert::AreEqual("PNL", st[1].GetCandidates()[0].GetName().c_str());
+			Assert::AreEqual("PC", st[2].GetCandidates()[0].GetName().c_str());
 		}
+
+		TEST_METHOD(AddVotesTest)
+		{
+			std::vector<PollingStation> st = StationsFill();
+			PollingStation central = { "Centralized",{} };
+			central.AddVotes(st).Sort(sort_type::byVotes);
+
+			//PSD = 108; PNL = 115; PC = 112;
+			Assert::AreEqual("PNL", central.GetCandidates()[0].GetName().c_str());
+		}
+
+
+		
+		std::vector<PollingStation> StationsFill()
+		{
+			PollingStation st1 = { "station1", { { "PSD",43 },{ "PNL",31 },{ "PC",27 } } };
+			PollingStation st2 = { "station2", { { "PNL",62 },{ "PC",51 },{ "PSD",46 } } };
+			PollingStation st3 = { "station3", { { "PC",34 },{ "PNL",22 },{ "PSD",19 } } };
+			std::vector<PollingStation> stations;
+			stations.push_back(st1);
+			stations.push_back(st2);
+			stations.push_back(st3);
+			return stations;
+		}
+
 
 	};
 }
