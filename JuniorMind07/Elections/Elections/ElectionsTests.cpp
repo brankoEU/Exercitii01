@@ -25,6 +25,10 @@ namespace Elections
 		{
 			return this->votes;
 		}
+		int AddVotes(Candidate &other)
+		{
+			return this->votes += other.votes;
+		}
 	};
 
 
@@ -58,6 +62,15 @@ namespace Elections
 		return cand1.GetName() > cand2.GetName();
 	}
 
+	void AddVotes(PollingStation &station)
+	{
+		for each (Candidate cd in candidates)
+			for each (Candidate other in station.candidates)
+			{
+				cd.AddVotes(other);
+			}
+	}
+
 	public:
 		PollingStation(std::string stationName, std::vector<Candidate> candidates)
 		{
@@ -75,20 +88,12 @@ namespace Elections
 			shellSort(sort, GetCandidates().size());
 		}
 			
-		PollingStation AddVotes(std::vector<PollingStation> stations)
+		void AddVotes(std::vector<PollingStation> &stations)
 		{
-			stations[0].Sort(sort_type::byNames);
-			for (int i = 1; i < stations.size(); i++)
+			for each (PollingStation st in stations)
 			{
-				stations[i].Sort(sort_type::byNames);
-				for (int j = 0; j < GetCandidates().size(); j++)
-				{
-					//int a = stations[0].GetCandidates()[j].GetVotes();
-					//a += stations[i].GetCandidates()[j].GetVotes();
-					//stations[0].GetCandidates()[j].GetVotes();
-				}
+				AddVotes(st);
 			}
-			return stations[0];
 		}
 
 	};
@@ -119,11 +124,13 @@ namespace Elections
 		TEST_METHOD(AddVotesTest)
 		{
 			std::vector<PollingStation> st = StationsFill();
-			PollingStation central = { "Centralized",{} };
-			central.AddVotes(st).Sort(sort_type::byVotes);
-
+			PollingStation central = { "Centralized", { { "PSD",0 },{ "PNL",0 },{ "PC",0 } } };
+			central.Sort(sort_type::byNames);
+			central.AddVotes(st);
+			
 			//PSD = 108; PNL = 115; PC = 112;
-			Assert::AreEqual("PNL", central.GetCandidates()[0].GetName().c_str());
+			//Assert::AreEqual("PNL", st[0].GetCandidates()[0].GetName().c_str());
+			Assert::AreEqual(1, central.GetCandidates()[0].GetVotes());
 		}
 
 
