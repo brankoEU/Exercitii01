@@ -25,7 +25,7 @@ namespace Elections
 		{
 			return this->votes;
 		}
-		int AddVotes(Candidate &other)
+		int AddVotes(Candidate other)
 		{
 			return this->votes += other.votes;
 		}
@@ -62,12 +62,13 @@ namespace Elections
 		return cand1.GetName() > cand2.GetName();
 	}
 
-	void AddVotes(PollingStation &station)
+	void AddVotes(PollingStation station)
 	{
 		for each (Candidate cd in candidates)
 			for each (Candidate other in station.candidates)
 			{
-				cd.AddVotes(other);
+				if(cd.GetName().compare(other.GetName()) == 0)
+					cd.AddVotes(other);
 			}
 	}
 
@@ -88,7 +89,7 @@ namespace Elections
 			shellSort(sort, GetCandidates().size());
 		}
 			
-		void AddVotes(std::vector<PollingStation> &stations)
+		void AddVotes(std::vector<PollingStation> stations)
 		{
 			for each (PollingStation st in stations)
 			{
@@ -125,7 +126,7 @@ namespace Elections
 		{
 			std::vector<PollingStation> st = StationsFill();
 			PollingStation central = { "Centralized", { { "PSD",0 },{ "PNL",0 },{ "PC",0 } } };
-			central.Sort(sort_type::byNames);
+			//central.Sort(sort_type::byNames);
 			central.AddVotes(st);
 			
 			//PSD = 108; PNL = 115; PC = 112;
